@@ -14,6 +14,7 @@
     <% @receitas.each do |receita| %>
       <tr>
         <td><%= link_to "#{receita.nome}", receita %></td>
+        <td style="width: 150px;"><%= link_to 'Gerar Receita', export_receita_path(receita), :target => "_blank" %></td>
         <td style="width: 80px;"><%= link_to 'Editar', edit_receita_path(receita) %></td>
         <td style="width: 80px;"><%= link_to 'Excluir', receita, method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
       </tr>

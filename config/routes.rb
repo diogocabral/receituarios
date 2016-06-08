@@ -3,7 +3,11 @@ Rails.application.routes.draw do
 
   resources :medicamentos
 
-  resources :receitas
+  resources :receitas do
+    member do
+      get 'export'
+    end
+  end
 
   resources :receituarios
 

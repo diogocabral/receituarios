@@ -1,5 +1,5 @@
 class ReceitasController < ApplicationController
-  before_action :set_receita, only: [:show, :edit, :update, :destroy]
+  before_action :set_receita, only: [:show, :edit, :export, :update, :destroy]
 
   # GET /receitas
   # GET /receitas.json
@@ -60,6 +60,15 @@ class ReceitasController < ApplicationController
       format.html { redirect_to receitas_url, notice: 'Receita was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # DELETE /receitas/1/export
+  def export
+    print @receita
+    
+    receita_pdf = ReceitaPdf.new(@receita)
+
+    send_data receita_pdf.render, filename: "receita_#{@receita.id}.pdf", type: "application/pdf", disposition: "inline"
   end
 
   private

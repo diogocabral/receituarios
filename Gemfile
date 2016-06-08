@@ -45,3 +45,4 @@ end
 gem 'pg'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'bootswatch-rails'
+gem 'prawn'
