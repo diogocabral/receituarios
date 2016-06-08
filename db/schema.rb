@@ -17,9 +17,9 @@ ActiveRecord::Schema.define(version: 20160608002406) do
   enable_extension "plpgsql"
 
   create_table "itens", force: :cascade do |t|
-    t.integer  "receita_id",        null: false
-    t.integer  "medicamento_id",    null: false
-    t.integer  "unidade_medida_id", null: false
+    t.integer  "id_receita",        null: false
+    t.integer  "id_medicamento",    null: false
+    t.integer  "id_unidade_medida", null: false
     t.integer  "quantidade",        null: false
     t.string   "instrucoes_de_uso"
     t.string   "sugestao_horario"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20160608002406) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "itens", "medicamentos"
-  add_foreign_key "itens", "receitas"
-  add_foreign_key "itens", "unidades_medida"
+  add_foreign_key "itens", "medicamentos", column: "id_medicamento"
+  add_foreign_key "itens", "receitas", column: "id_receita"
+  add_foreign_key "itens", "unidades_medida", column: "id_unidade_medida"
 end
