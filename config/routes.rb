@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   resources :unidades_medida
 
-  resources :items
-
   resources :medicamentos
 
   resources :receitas

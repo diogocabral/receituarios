@@ -76,6 +76,7 @@ class ReceitasController < ApplicationController
         :id_unidade_medida, 
         :quantidade, 
         :instrucoes_de_uso, 
-        :sugestao_horario])
+        :sugestao_horario,
+        :_destroy])
     end
 end

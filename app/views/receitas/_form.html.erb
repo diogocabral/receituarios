@@ -18,26 +18,26 @@
   </div>
 
   <div class="form-group">
-    <table class="table">
+    <table id="itens" class="table">
       <thead>
         <tr>
-            <th>Medicamento</th>
+            <th id="teste">Medicamento</th>
             <th>Unidade de Medida</th>
             <th>Quantidade</th>
             <th>Instruções de Uso</th>
             <th>Sugestão de Horário</th>
             <th></th>
         </tr>
-      <thead>
-      <tbody id="itens">
-        <%= f.fields_for(:itens) do |item_form| %>
-          <%= render partial: 'item_form', :locals => {:item_form => item_form} %>
+      </thead>
+      <tbody>
+        <%= f.fields_for :itens do |item_form| %>
+          <%= render partial: 'item', :object => item_form %>
         <% end %>
       </tbody>
       <tfoot>
         <tr>
           <td colspan="6">
-            <%= link_to 'Adicionar Medicamento', '#', :onclick => 'alert("adicionar")', :class => 'btn btn-default' %>
+            <%= link_to_add_item "Adicionar Medicamento", f, :itens, 'btn btn-default' %>
           </td>
         </tr>
       </tfoot>
