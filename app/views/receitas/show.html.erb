@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+	<strong>Nome da Receita:</strong>
+	<%= @receita.nome %>
+
+	<ul>
+		<% @receita.itens.each do |item| %>
+		  <li><%= item.medicamento.nome %> ---------------------------------------- <%= pluralize(item.quantidade, item.unidade_medida.nome).upcase %><br />
+		  	Uso: <%= item.instrucoes_de_uso %><br />
+		  	<% if item.sugestao_horario? %>
+		  	Sugestão de horário: <%= item.sugestao_horario %></li>
+		  	<% end %>
+		<% end %>
+	</ul>
+</p>
+
+<%= link_to 'Editar', edit_receita_path(@receita), :class => 'btn btn-default' %>
+<%= link_to 'Voltar', receitas_path, :class => 'btn btn-default' %>

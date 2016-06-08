@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @unidade_medida.nome %>
+</p>
+
+<%= link_to 'Editar', edit_unidade_medida_path(@unidade_medida), :class => 'btn btn-default' %>
+<%= link_to 'Voltar', unidades_medida_path, :class => 'btn btn-default' %>

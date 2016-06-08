@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Receituarios</title>
+	<meta http-equiv="Content-Language" content="pt-br">
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	<%= csrf_meta_tags %>
+</head>
+<body>
+
+<div class="container">
+	<nav>
+	  <ul class="nav navbar-nav navbar-right">
+	    <li><%= link_to "Receitas",   receitas_path %></li>
+	    <li><%= link_to "Medicamentos",   medicamentos_path %></li>
+	    <li><%= link_to "Unidades de Medida",   unidades_medida_path %></li>
+	  </ul>
+	</nav>
+
+	<%= yield %>
+</div>
+
+</body>
+</html>

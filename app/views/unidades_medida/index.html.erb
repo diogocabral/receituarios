@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Unidades de Medida</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Sigla</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @unidades_medida.each do |unidade_medida| %>
+      <tr>
+        <td><%= link_to "#{unidade_medida.nome}", unidade_medida %></td>
+        <td><%= unidade_medida.sigla %></td>
+        <td style="width: 80px;"><%= link_to 'Editar', edit_unidade_medida_path(unidade_medida) %></td>
+        <td style="width: 80px;"><%= link_to 'Excluir', unidade_medida, method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Nova Unidade de Medida', new_unidade_medida_path, :class => 'btn btn-default' %>

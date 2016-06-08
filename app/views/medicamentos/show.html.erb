@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @medicamento.nome %>
+</p>
+
+<%= link_to 'Editar', edit_medicamento_path(@medicamento), :class => 'btn btn-default' %>
+<%= link_to 'Voltar', medicamentos_path, :class => 'btn btn-default' %>

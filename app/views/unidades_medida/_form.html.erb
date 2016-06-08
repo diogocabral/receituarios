@@ -1,0 +1,28 @@
+<%= form_for @unidade_medida, :html => {:class => 'form-horizontal', :role => 'form'} do |f| %>
+
+  <% if @unidade_medida.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@unidade_medida.errors.count, "erro") %> ao tentar salvar:</h2>
+
+      <ul>
+      <% @unidade_medida.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :nome %>
+    <%= f.text_field :nome, :class => 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :sigla %>
+    <%= f.text_field :sigla, :class => 'form-control' %>
+  </div>
+
+  <%= f.submit 'Salvar', :class => 'btn btn-default' %>
+  <%= link_to 'Voltar', unidades_medida_path, :class => 'btn btn-default' %>
+
+<% end %>

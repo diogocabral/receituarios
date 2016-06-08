@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Receitas</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @receitas.each do |receita| %>
+      <tr>
+        <td><%= link_to "#{receita.nome}", receita %></td>
+        <td style="width: 80px;"><%= link_to 'Editar', edit_receita_path(receita) %></td>
+        <td style="width: 80px;"><%= link_to 'Excluir', receita, method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Nova Receita', new_receita_path, :class => 'btn btn-default' %>

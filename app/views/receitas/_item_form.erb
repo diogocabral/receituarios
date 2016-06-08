@@ -1,0 +1,9 @@
+<tr>
+	<%= item_form.hidden_field :id %>
+	<td><%= item_form.collection_select(:id_medicamento, Medicamento.all, :id, :nome, {:prompt => 'Selecione'}, {:class => 'form-control'}) %></td>
+	<td><%= item_form.collection_select(:id_unidade_medida, UnidadeMedida.all, :id, :nome, {:prompt => 'Selecione'}, {:class => 'form-control'}) %></td>
+	<td><%= item_form.text_field :quantidade, :class => 'form-control' %></td>
+	<td><%= item_form.text_field :instrucoes_de_uso, :class => 'form-control' %></td>
+	<td><%= item_form.text_field :sugestao_horario, :class => 'form-control' %></td>
+	<td><%= link_to 'Remover', '#', :onclick => "alert('213')", :class => 'btn btn-default' %></td>
+</tr>

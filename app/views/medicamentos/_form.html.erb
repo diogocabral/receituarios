@@ -1,0 +1,24 @@
+<%= form_for @medicamento, :html => {:class => 'form-horizontal', :role => 'form'} do |f| %>
+
+  <% if @medicamento.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@medicamento.errors.count, "erro") %> ao tentar salvar:</h2>
+
+      <ul>
+      <% @medicamento.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :nome %>
+    <%= f.text_field :nome, :class => 'form-control' %>
+  </div>
+
+  <%= f.submit 'Salvar', :class => 'btn btn-default' %>
+  <%= link_to 'Voltar', medicamentos_path, :class => 'btn btn-default' %>
+
+<% end %>
+
