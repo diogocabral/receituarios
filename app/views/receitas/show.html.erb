@@ -15,5 +15,6 @@
 	</ul>
 </p>
 
+<%= link_to 'Gerar Receita', export_receita_path(@receita), :class => 'btn btn-default', :target => "_blank" %>
 <%= link_to 'Editar', edit_receita_path(@receita), :class => 'btn btn-default' %>
 <%= link_to 'Voltar', receitas_path, :class => 'btn btn-default' %>

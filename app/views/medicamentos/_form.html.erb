@@ -1,8 +1,8 @@
 <%= form_for @medicamento, :html => {:class => 'form-horizontal', :role => 'form'} do |f| %>
 
   <% if @medicamento.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@medicamento.errors.count, "erro") %> ao tentar salvar:</h2>
+    <div class="alert alert-danger" role="alert">
+      <strong><%= pluralize(@medicamento.errors.count, "erro") %> ao tentar salvar:</strong>
 
       <ul>
       <% @medicamento.errors.full_messages.each do |message| %>
