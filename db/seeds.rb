@@ -5,6 +5,12 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Usuario.find_or_create_by!(email: 'user@example.com') do |usuario|
+  usuario.password = 'changeme'
+  usuario.password_confirmation = 'changeme'
+end
+
 UnidadeMedida.create(nome: 'CAIXA', sigla: 'CX')
 UnidadeMedida.create(nome: 'COMPRIMIDO', sigla: 'CP')
 UnidadeMedida.create(nome: 'MILILITRO', sigla: 'mL')

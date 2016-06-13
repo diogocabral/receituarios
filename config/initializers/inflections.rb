@@ -14,6 +14,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
 	inflect.irregular "receita", "receitas"
 	inflect.irregular "receituario", "receituarios"
 	inflect.irregular "unidade_medida", "unidades_medida"
+	inflect.irregular "usuario", "usuarios"
 end
 
 # These inflection rules are supported but not enabled by default:

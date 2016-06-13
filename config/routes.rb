@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  devise_for :usuarios
+
   resources :unidades_medida
 
   resources :medicamentos
@@ -10,6 +13,8 @@ Rails.application.routes.draw do
   end
 
   resources :receituarios
+
+  root to: 'receitas#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

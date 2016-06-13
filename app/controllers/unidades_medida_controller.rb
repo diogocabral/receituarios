@@ -1,4 +1,6 @@
 class UnidadesMedidaController < ApplicationController
+
+  before_action :authenticate_usuario!
   before_action :set_unidade_medida, only: [:show, :edit, :update, :destroy]
 
   # GET /unidades_medida
