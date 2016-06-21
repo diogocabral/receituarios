@@ -10,6 +10,18 @@
 <body>
 
 <div class="container">
+	<nav>
+	  <ul class="nav navbar-nav navbar-right">
+	    <li><%= link_to "Receitas",   receitas_path %></li>
+	    <li><%= link_to "Medicamentos",   medicamentos_path %></li>
+	    <li><%= link_to "Unidades de Medida",   unidades_medida_path %></li>
+		<li><%= link_to 'Editar Perfil', edit_usuario_registration_path, :class => 'navbar-link' %></li>
+		<li><%= link_to "Sair", destroy_usuario_session_path, method: :delete, :class => 'navbar-link'  %></li>
+  	  </ul>
+	</nav>
+</div>
+
+<div class="container">
 	<%= yield %>
 </div>
 

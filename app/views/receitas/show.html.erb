@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% if notice.present? %>
+  <div class="alert alert-success" role="alert"><p id="notice"><%= notice %></p></div>
+<% end %>
 
 <p>
 	<strong>Nome da Receita:</strong>
@@ -6,7 +8,7 @@
 
 	<ul>
 		<% @receita.itens.each do |item| %>
-		  <li><%= item.medicamento.nome %> ---------------------------------------- <%= pluralize(item.quantidade, item.unidade_medida.nome).upcase %><br />
+		  <li><%= item.medicamento.nome %> <%= pluralize(item.quantidade, item.unidade_medida.nome).upcase %><br />
 		  	Uso: <%= item.instrucoes_de_uso %><br />
 		  	<% if item.sugestao_horario? %>
 		  	Sugestão de horário: <%= item.sugestao_horario %></li>

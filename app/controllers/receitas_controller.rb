@@ -4,13 +4,11 @@ class ReceitasController < ApplicationController
   before_action :set_receita, only: [:show, :edit, :export, :update, :destroy]
 
   # GET /receitas
-  # GET /receitas.json
   def index
     @receitas = Receita.all
   end
 
   # GET /receitas/1
-  # GET /receitas/1.json
   def show
   end
 
@@ -25,50 +23,34 @@ class ReceitasController < ApplicationController
   end
 
   # POST /receitas
-  # POST /receitas.json
   def create
     @receita = Receita.new(receita_params)
 
-    respond_to do |format|
-      if @receita.save
-        format.html { redirect_to @receita, notice: 'Receita was successfully created.' }
-        format.json { render :show, status: :created, location: @receita }
-      else
-        format.html { render :new }
-        format.json { render json: @receita.errors, status: :unprocessable_entity }
-      end
+    if @receita.save
+      redirect_to @receita, notice: 'Receita foi criada com sucesso.'
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /receitas/1
-  # PATCH/PUT /receitas/1.json
   def update
-    respond_to do |format|
-      if @receita.update(receita_params)
-        format.html { redirect_to @receita, notice: 'Receita was successfully updated.' }
-        format.json { render :show, status: :ok, location: @receita }
-      else
-        format.html { render :edit }
-        format.json { render json: @receita.errors, status: :unprocessable_entity }
-      end
+    if @receita.update(receita_params)
+      redirect_to @receita, notice: 'Receita foi atualizada com sucesso.'
+    else
+      render :edit
     end
   end
 
   # DELETE /receitas/1
-  # DELETE /receitas/1.json
   def destroy
     @receita.destroy
-    respond_to do |format|
-      format.html { redirect_to receitas_url, notice: 'Receita was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to receitas_url, notice: 'Receita foi excluída com sucesso.'
   end
 
-  # DELETE /receitas/1/export
-  def export
-    print @receita
-    
-    receita_pdf = ReceitaPdf.new(@receita)
+  # GET /receitas/1/export
+  def export    
+    receita_pdf = ReceitaPdf.new(@receita, 'Diogo Cabral de Almeida', Time.now.strftime("%d/%m/%Y"))
 
     send_data receita_pdf.render, filename: "receita_#{@receita.id}.pdf", type: "application/pdf", disposition: "inline"
   end
@@ -90,4 +72,5 @@ class ReceitasController < ApplicationController
         :sugestao_horario,
         :_destroy])
     end
+    
 end

@@ -1,47 +1,93 @@
 class ReceitaPdf < Prawn::Document
 	
-  def initialize(receita)
+  def initialize(receita, nome_paciente, data)
     super(page_size: 'A4', margin: [50, 60, 30, 60])
 
+    font_families["Arial"] = {
+        :normal => { :file => "#{Rails.root}/app/assets/fonts/arial.ttf", :font => "Arial" },
+        :bold => { :file => "#{Rails.root}/app/assets/fonts/arial-bold.ttf", :font => "Arial" }
+    }
+
+    font "Arial"
+
     @receita = receita
+    @nome_paciente = nome_paciente
+    @data = data
 
-    # bounding_box [bounds.left, bounds.top + 40], width: bounds.width, height: 40 do
-    	add_header
-      move_down 10
-    # end
+    bounding_box [bounds.left, bounds.top - 150], width: bounds.width, height: 130 do
+      add_body
+    end
 
-    add_body(receita)
+    repeat :all do
+      bounding_box [bounds.left, bounds.top], width: bounds.width do
+        add_header
+      end
 
-    bounding_box [bounds.left, bounds.bottom + 40], width: bounds.width, height: 40 do
-      add_footer
+      bounding_box [bounds.left, bounds.bottom + 300], width: bounds.width do
+        add_signature
+      end
+
+      bounding_box [bounds.left, bounds.bottom + 40], width: bounds.width do
+        add_footer
+      end
     end
   end
 
   private
 
   	def add_header
+      image "#{Rails.root}/app/assets/images/logo.jpg", position: :left, width: 80
+
+      move_cursor_to bounds.top
+
+      move_down 40
+
   		text "Receituário", align: :center, size: 20
+
+      move_down 10
+
       stroke_horizontal_rule
+
+      move_down 30
+
+      text "<b>Nome:</b> #{@nome_paciente}", :size => 12, :inline_format => true
   	end
 
-  	def add_body(receita)
-
-      text "Nome: Diogo Cabral de Almeida", :size => 10
-      move_down 20
+  	def add_body
   		@receita.itens.each do |item|
-        medicamento_size = (item.medicamento.nome + item.quantidade.to_s + item.unidade_medida.nome).size
+        unidade_medida = item.unidade_medida.nome.pluralize(item.quantidade).downcase
 
-        asd = "-" * (118 - medicamento_size)
+        text_size = width_of "<b>#{item.medicamento.nome}</b> #{item.quantidade} #{unidade_medida}", 
+          :size => 12, 
+          :inline_format => true
 
-  		  text "#{item.medicamento.nome} #{asd} #{item.quantidade} #{item.unidade_medida.nome}", :size => 10
-  		  text "Uso: " + item.instrucoes_de_uso, :size => 8
+        separator_size = width_of "-", 
+          :size => 12, 
+          :inline_format => true
 
-        if item.sugestao_horario?
-  		    text "Sugestão de horário: " + item.sugestao_horario, :size => 8
+        separators = "-" * ((450 - text_size)/separator_size)
+
+        text "<b>#{item.medicamento.nome}</b> #{separators} #{item.quantidade} #{unidade_medida}", 
+          :size => 12, 
+          align: :center,
+          :inline_format => true
+
+        indent(20) do
+  		    text "Uso: " + item.instrucoes_de_uso, :size => 10
+          if item.sugestao_horario?
+            text "Sugestão de horário: " + item.sugestao_horario, :size => 10
+          end
         end
+
         move_down 20
   		end
   	end
+
+    def add_signature
+      text "Maceió, #{@data}", :size => 10, align: :center
+      move_down 20
+      text "_______________________________", align: :center
+    end
 
     def add_footer
       stroke_horizontal_rule
