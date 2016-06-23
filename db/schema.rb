@@ -11,12 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160613020629) do
+ActiveRecord::Schema.define(version: 20160623192610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "itens", force: :cascade do |t|
+  create_table "itens_orientacao", force: :cascade do |t|
+    t.string   "nome",                   null: false
+    t.integer  "id_item_orientacao_sup"
+    t.integer  "id_orientacao",          null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "itens_receita", force: :cascade do |t|
     t.integer  "id_receita",        null: false
     t.integer  "id_medicamento",    null: false
     t.integer  "id_unidade_medida", null: false
@@ -28,6 +36,12 @@ ActiveRecord::Schema.define(version: 20160613020629) do
   end
 
   create_table "medicamentos", force: :cascade do |t|
+    t.string   "nome",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orientacoes", force: :cascade do |t|
     t.string   "nome",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -64,7 +78,9 @@ ActiveRecord::Schema.define(version: 20160613020629) do
   add_index "usuarios", ["email"], name: "index_usuarios_on_email", unique: true, using: :btree
   add_index "usuarios", ["reset_password_token"], name: "index_usuarios_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "itens", "medicamentos", column: "id_medicamento"
-  add_foreign_key "itens", "receitas", column: "id_receita"
-  add_foreign_key "itens", "unidades_medida", column: "id_unidade_medida"
+  add_foreign_key "itens_orientacao", "itens_orientacao", column: "id_item_orientacao_sup"
+  add_foreign_key "itens_orientacao", "orientacoes", column: "id_orientacao"
+  add_foreign_key "itens_receita", "medicamentos", column: "id_medicamento"
+  add_foreign_key "itens_receita", "receitas", column: "id_receita"
+  add_foreign_key "itens_receita", "unidades_medida", column: "id_unidade_medida"
 end

@@ -30,14 +30,14 @@
         </tr>
       </thead>
       <tbody>
-        <%= f.fields_for :itens do |item_form| %>
+        <%= f.fields_for :itens_receita do |item_form| %>
           <%= render partial: 'item', :object => item_form %>
         <% end %>
       </tbody>
       <tfoot>
         <tr>
           <td colspan="6">
-            <%= link_to_add_item "Adicionar Medicamento", f, :itens, 'btn btn-default' %>
+            <%= link_to_add_item "Adicionar Medicamento", f, :itens_receita, 'btn btn-default' %>
           </td>
         </tr>
       </tfoot>

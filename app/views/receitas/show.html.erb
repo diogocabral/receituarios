@@ -7,7 +7,7 @@
 	<%= @receita.nome %>
 
 	<ul>
-		<% @receita.itens.each do |item| %>
+		<% @receita.itens_receita.each do |item| %>
 		  <li><%= item.medicamento.nome %> <%= pluralize(item.quantidade, item.unidade_medida.nome).upcase %><br />
 		  	Uso: <%= item.instrucoes_de_uso %><br />
 		  	<% if item.sugestao_horario? %>

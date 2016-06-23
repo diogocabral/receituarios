@@ -54,7 +54,7 @@ class ReceitaPdf < Prawn::Document
   	end
 
   	def add_body
-  		@receita.itens.each do |item|
+  		@receita.itens_receita.each do |item|
         unidade_medida = item.unidade_medida.nome.pluralize(item.quantidade).downcase
 
         text_size = width_of "<b>#{item.medicamento.nome}</b> #{item.quantidade} #{unidade_medida}", 

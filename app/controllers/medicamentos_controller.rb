@@ -26,7 +26,7 @@ class MedicamentosController < ApplicationController
     @medicamento = Medicamento.new(medicamento_params)
 
     if @medicamento.save
-      edirect_to @medicamento, notice: 'Medicamento foi criado com sucesso.'
+      redirect_to @medicamento, notice: 'Medicamento foi criado com sucesso.'
     else
       render :new
     end

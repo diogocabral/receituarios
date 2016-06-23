@@ -15,7 +15,7 @@ class ReceitasController < ApplicationController
   # GET /receitas/new
   def new
     @receita = Receita.new
-    @receita.itens.build
+    @receita.itens_receita.build
   end
 
   # GET /receitas/1/edit
@@ -63,7 +63,7 @@ class ReceitasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def receita_params
-      params.require(:receita).permit(:nome, itens_attributes: [
+      params.require(:receita).permit(:nome, itens_receita_attributes: [
         :id,
         :id_medicamento, 
         :id_unidade_medida, 

@@ -1,6 +1,6 @@
-class CreateItens < ActiveRecord::Migration
+class CreateItensReceita < ActiveRecord::Migration
   def change
-    create_table :itens do |t|
+    create_table :itens_receita do |t|
   	  t.integer :id_receita, null: false
   	  t.integer :id_medicamento, null: false
   	  t.integer :id_unidade_medida, null: false

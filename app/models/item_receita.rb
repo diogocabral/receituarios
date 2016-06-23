@@ -1,4 +1,4 @@
-class Item < ActiveRecord::Base
+class ItemReceita < ActiveRecord::Base
 
 	belongs_to :receita,
 		:foreign_key => 'id_receita'

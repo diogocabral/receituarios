@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   resources :medicamentos
 
+  resources :orientacoes
+
   resources :receitas do
     member do
       get 'export'
