@@ -5,7 +5,7 @@ class MedicamentosController < ApplicationController
 
   # GET /medicamentos
   def index
-    @medicamentos = Medicamento.all
+    @medicamentos = Medicamento.order(:nome).all
   end
 
   # GET /medicamentos/1

@@ -1,0 +1,43 @@
+<%= form_tag(export_receita_path(@receita), method: "get") do %>
+  <% if @receita.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+      <strong><%= pluralize(@receita.errors.count, "erro") %> ao tentar salvar:</strong>
+
+      <ul>
+      <% @receita.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+
+    </div>
+  <% end %>
+  <div class="form-group">
+    <label>Paciente:<label/>
+    <input name="paciente" />
+  </div>
+
+  <div class="form-group">
+    <label>Data:<label/>
+    <input name="data" value="<%= @data %>" />
+  </div>
+
+  <div class="form-group">
+    <label>Observações:<label/>
+    <textarea name="observacoes" cols="100" rows="5"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label>Número de cópias:<label/>
+  </div>
+
+  <div class="form-group">
+    <label>Separar um remédio por folha:<label/>    
+  </div>
+
+  <div class="form-group">
+    <label>Orientações:<label/>    
+  </div>
+
+  <%= submit_tag 'Gerar', :class => 'btn btn-default' %>
+
+<% end %>

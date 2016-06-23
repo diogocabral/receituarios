@@ -1,11 +1,11 @@
 class ReceitasController < ApplicationController
 
   before_action :authenticate_usuario!
-  before_action :set_receita, only: [:show, :edit, :export, :update, :destroy]
+  before_action :set_receita, only: [:show, :edit, :export, :preparar, :update, :destroy]
 
   # GET /receitas
   def index
-    @receitas = Receita.all
+    @receitas = Receita.order(:nome).all
   end
 
   # GET /receitas/1
@@ -48,9 +48,18 @@ class ReceitasController < ApplicationController
     redirect_to receitas_url, notice: 'Receita foi excluída com sucesso.'
   end
 
+  # GET /receitas/1/preparar
+  def preparar
+    @data = Time.now.strftime("%d/%m/%Y")
+  end
+
   # GET /receitas/1/export
-  def export    
-    receita_pdf = ReceitaPdf.new(@receita, 'Diogo Cabral de Almeida', Time.now.strftime("%d/%m/%Y"))
+  def export   
+    paciente = params[:paciente]
+    data = params[:data]
+    observacoes = params[:observacoes]
+
+    receita_pdf = ReceitaPdf.new(@receita, paciente, data, observacoes)
 
     send_data receita_pdf.render, filename: "receita_#{@receita.id}.pdf", type: "application/pdf", disposition: "inline"
   end

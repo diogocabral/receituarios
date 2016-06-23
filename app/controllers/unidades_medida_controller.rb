@@ -5,7 +5,7 @@ class UnidadesMedidaController < ApplicationController
 
   # GET /unidades_medida
   def index
-    @unidades_medida = UnidadeMedida.all
+    @unidades_medida = UnidadeMedida.order(:nome).all
   end
 
   # GET /unidades_medida/1

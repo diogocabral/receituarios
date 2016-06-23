@@ -1,6 +1,6 @@
 class ReceitaPdf < Prawn::Document
 	
-  def initialize(receita, nome_paciente, data)
+  def initialize(receita, nome_paciente, data, observacoes)
     super(page_size: 'A4', margin: [50, 60, 30, 60])
 
     font_families["Arial"] = {
@@ -13,8 +13,9 @@ class ReceitaPdf < Prawn::Document
     @receita = receita
     @nome_paciente = nome_paciente
     @data = data
+    @observacoes = observacoes
 
-    bounding_box [bounds.left, bounds.top - 150], width: bounds.width, height: 130 do
+    bounding_box [bounds.left, bounds.top - 150], width: bounds.width, height: 200 do
       add_body
     end
 
@@ -73,20 +74,21 @@ class ReceitaPdf < Prawn::Document
           :inline_format => true
 
         indent(20) do
-  		    text "Uso: " + item.instrucoes_de_uso, :size => 10
+  		    text item.instrucoes_de_uso, :size => 10
           if item.sugestao_horario?
-            text "Sugestão de horário: " + item.sugestao_horario, :size => 10
+            text "Sugestão de horário: " + item.sugestao_horario, :size => 9
           end
         end
 
         move_down 20
   		end
+
+      move_down 50
+      text @observacoes, align: :center
   	end
 
     def add_signature
       text "Maceió, #{@data}", :size => 10, align: :center
-      move_down 20
-      text "_______________________________", align: :center
     end
 
     def add_footer

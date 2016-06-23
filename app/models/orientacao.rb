@@ -4,6 +4,8 @@ class Orientacao < ActiveRecord::Base
     :foreign_key => 'id_orientacao',
     :dependent => :destroy
 
-	validates_presence_of :nome
+	validates_presence_of :nome, :itens_orientacao
+
+  accepts_nested_attributes_for :itens_orientacao, allow_destroy: true
 
 end

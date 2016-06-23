@@ -1,0 +1,20 @@
+<%= form_for @orientacao, :html => {:class => 'form-horizontal', :role => 'form'} do |f| %>
+
+  <% if @orientacao.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+      <strong><%= pluralize(@orientacao.errors.count, "erro") %> ao tentar salvar:</strong>
+
+      <ul>
+      <% @orientacao.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.submit 'Salvar', :class => 'btn btn-default' %>
+  <%= link_to 'Voltar', receitas_path, :class => 'btn btn-default' %>
+
+<% end %>
+
+
