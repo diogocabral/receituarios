@@ -1,7 +1,7 @@
 class ReceitasController < ApplicationController
 
   before_action :authenticate_usuario!
-  before_action :set_receita, only: [:show, :edit, :export, :preparar, :update, :destroy]
+  before_action :set_receita, only: [:show, :edit, :exportar, :preparar, :update, :destroy]
 
   # GET /receitas
   def index
@@ -51,15 +51,21 @@ class ReceitasController < ApplicationController
   # GET /receitas/1/preparar
   def preparar
     @data = Time.now.strftime("%d/%m/%Y")
+    @numero_copias = 1
   end
 
-  # GET /receitas/1/export
-  def export   
+  # GET /receitas/1/exportar
+  def exportar
     paciente = params[:paciente]
     data = params[:data]
     observacoes = params[:observacoes]
+    numero_copias = params[:numero_copias].to_i
 
-    receita_pdf = ReceitaPdf.new(@receita, paciente, data, observacoes)
+    if params[:id_orientacao].present?
+      orientacao = Orientacao.find(params[:id_orientacao])
+    end
+
+    receita_pdf = ReceitaPdf.new(@receita, paciente, data, observacoes, numero_copias)
 
     send_data receita_pdf.render, filename: "receita_#{@receita.id}.pdf", type: "application/pdf", disposition: "inline"
   end

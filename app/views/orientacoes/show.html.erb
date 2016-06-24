@@ -1,3 +1,24 @@
 <% if notice.present? %>
   <div class="alert alert-success" role="alert"><p id="notice"><%= notice %></p></div>
 <% end %>
+
+<p>
+  <strong>Nome da Orientação:</strong>
+  <%= @orientacao.nome %>
+
+  <ul>
+    <% @orientacao.itens_orientacao.each do |item| %>
+      <li><%= item.nome %></li>
+      <% if item.itens_orientacao.present? %>
+        <ul>
+          <% item.itens_orientacao.each do |sub_item| %>
+            <li><%= sub_item.nome %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+  </ul>
+</p>
+
+<%= link_to 'Editar', edit_orientacao_path(@orientacao), :class => 'btn btn-default' %>
+<%= link_to 'Voltar', orientacoes_path, :class => 'btn btn-default' %>

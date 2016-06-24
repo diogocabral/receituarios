@@ -1,43 +1,31 @@
-<%= form_tag(export_receita_path(@receita), method: "get") do %>
-  <% if @receita.errors.any? %>
-    <div class="alert alert-danger" role="alert">
-      <strong><%= pluralize(@receita.errors.count, "erro") %> ao tentar salvar:</strong>
+<%= form_tag(exportar_receita_path(@receita), method: "post") do %>
 
-      <ul>
-      <% @receita.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-
-    </div>
-  <% end %>
   <div class="form-group">
-    <label>Paciente:<label/>
-    <input name="paciente" />
+    <%= label_tag :paciente, "Paciente:" %>
+    <%= text_field_tag :paciente, @paciente, :class => 'form-control' %>
   </div>
 
   <div class="form-group">
-    <label>Data:<label/>
-    <input name="data" value="<%= @data %>" />
+    <%= label_tag :data, "Data:" %>
+    <%= text_field_tag :data, @data, :class => 'form-control' %>
   </div>
 
   <div class="form-group">
-    <label>Observações:<label/>
-    <textarea name="observacoes" cols="100" rows="5"></textarea>
+    <%= label_tag :observacoes, "Observações:" %>
+    <%= text_area_tag :observacoes, @observacoes, :class => 'form-control', size: "25x5" %>
   </div>
 
   <div class="form-group">
-    <label>Número de cópias:<label/>
+    <%= label_tag :numero_copias, "Número de Cópias:" %>
+    <%= text_field_tag :numero_copias, @numero_copias, :class => 'form-control' %>
   </div>
 
   <div class="form-group">
-    <label>Separar um remédio por folha:<label/>    
-  </div>
-
-  <div class="form-group">
-    <label>Orientações:<label/>    
+    <%= label_tag :orientacao, "Orientação:" %>
+      <%= select_tag(:id_orientacao, options_from_collection_for_select(Orientacao.all, :id, :nome, @id_orientacao), {:prompt => '', :class => 'form-control'}) %>
   </div>
 
   <%= submit_tag 'Gerar', :class => 'btn btn-default' %>
+  <%= link_to 'Voltar', receitas_path, :class => 'btn btn-default' %>
 
 <% end %>

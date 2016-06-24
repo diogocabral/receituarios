@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 ready = ->
-	$('#itens').on 'click', '.remove_item', (event) ->
+	$('#itens_receita').on 'click', '.remove_item', (event) ->
 		if $(this).closest('tr').children().val() == ''
 			$(this).closest('tr').remove()
 		else
@@ -11,7 +11,7 @@ ready = ->
 			$(this).closest('tr').hide()
 		event.preventDefault()
 
-	$('#itens').on 'click', '.add_item', (event) ->
+	$('#itens_receita').on 'click', '.add_item', (event) ->
 		time = new Date().getTime()
 		regexp = new RegExp($(this).data('id'), 'g')
 		$('tbody').append($(this).data('fields').replace(regexp, time))

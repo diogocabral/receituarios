@@ -24,7 +24,7 @@ Medicamento.create(nome: 'RINOSORO JET')
 Medicamento.create(nome: 'TRAMAL 100 mg/mL')
 
 Receita.create(nome: 'Pós-operatório de Desvio de Septo e Turmbinectomia', itens_receita: [
-ItemReceita.new(medicamento: Medicamento.find(2), unidade_medida: UnidadeMedida.find(2), quantidade: 28, instrucoes_de_uso: 'Uso: Tomar um comprimido de 6/6h'),
+ItemReceita.new(medicamento: Medicamento.find(2), unidade_medida: UnidadeMedida.find(2), quantidade: 28, instrucoes_de_uso: 'Tomar um comprimido de 6/6h'),
 ItemReceita.new(medicamento: Medicamento.find(4), unidade_medida: UnidadeMedida.find(1), quantidade: 1, instrucoes_de_uso: 'Tomar um comprimido de 6/6h se dor'),
 ItemReceita.new(medicamento: Medicamento.find(5), unidade_medida: UnidadeMedida.find(3), quantidade: 1, instrucoes_de_uso: 'Aplicar um jato em cada narina de 2/2h')
 ])

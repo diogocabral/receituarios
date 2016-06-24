@@ -1,22 +1,27 @@
 class ReceitaPdf < Prawn::Document
 	
-  def initialize(receita, nome_paciente, data, observacoes)
-    super(page_size: 'A4', margin: [50, 60, 30, 60])
+  def initialize(receita, nome_paciente, data, observacoes, numero_copias)
+    super(page_size: 'A4', margin: [50, 60, 30, 60], skip_page_creation: true)
 
     font_families["Arial"] = {
         :normal => { :file => "#{Rails.root}/app/assets/fonts/arial.ttf", :font => "Arial" },
         :bold => { :file => "#{Rails.root}/app/assets/fonts/arial-bold.ttf", :font => "Arial" }
     }
 
-    font "Arial"
-
     @receita = receita
     @nome_paciente = nome_paciente
     @data = data
     @observacoes = observacoes
+    @numero_copias = numero_copias
 
-    bounding_box [bounds.left, bounds.top - 150], width: bounds.width, height: 200 do
-      add_body
+    @numero_copias.times do
+      bounding_box [bounds.left, bounds.top - 150], width: bounds.width, height: 200 do
+        start_new_page
+
+        font "Arial"
+        
+        add_body
+      end
     end
 
     repeat :all do

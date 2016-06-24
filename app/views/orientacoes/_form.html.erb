@@ -12,9 +12,27 @@
     </div>
   <% end %>
 
+  <div class="form-group">
+    <%= f.label :nome %>
+    <%= f.text_field :nome, :class => 'form-control' %>
+  </div>
+
+  <h3>Itens</h3>
+
+  <div id="itens_orientacao">
+    <ul>
+      <%= f.fields_for :itens_orientacao do |item_form| %>
+        <%= render partial: 'item', :object => item_form %>
+      <% end %>
+    </ul>
+
+    <%= link_to_add_item_orientacao "Adicionar Item", f, :itens_orientacao, 'btn btn-default' %>
+  </div>
+
+  <br />
+  <br />
+
   <%= f.submit 'Salvar', :class => 'btn btn-default' %>
-  <%= link_to 'Voltar', receitas_path, :class => 'btn btn-default' %>
+  <%= link_to 'Voltar', orientacoes_path, :class => 'btn btn-default' %>
 
 <% end %>
-
-

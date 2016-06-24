@@ -1,7 +1,7 @@
 class OrientacoesController < ApplicationController
     
   before_action :authenticate_usuario!
-  before_action :set_organizacao, only: [:show, :edit, :update, :destroy]
+  before_action :set_orientacao, only: [:show, :edit, :update, :destroy]
 
   # GET /orientacoes
   def index
@@ -48,8 +48,8 @@ class OrientacoesController < ApplicationController
     redirect_to receitas_url, notice: 'Orientação foi excluída com sucesso.'
   end
 
-  # GET /orientacoes/1/export
-  def export   
+  # GET /orientacoes/1/exportar
+  def exportar
   end
 
   private
@@ -63,7 +63,11 @@ class OrientacoesController < ApplicationController
       params.require(:orientacao).permit(:nome, itens_orientacao_attributes: [
         :id,
         :nome, 
-        :_destroy])
+        :_destroy, 
+        itens_orientacao_attributes: [
+          :id,
+          :nome, 
+          :_destroy]])
     end
 
 end

@@ -3,9 +3,12 @@ class ItemOrientacao < ActiveRecord::Base
   belongs_to :orientacao,
     :foreign_key => 'id_orientacao'
 
-  belongs_to :item_orientacao,
-    :foreign_key => 'id_item_orientacao_sup'
+  has_many :itens_orientacao,
+    :foreign_key => 'id_item_orientacao_sup',
+    :dependent => :destroy
 
   validates_presence_of :nome
+
+  accepts_nested_attributes_for :itens_orientacao, allow_destroy: true
 
 end

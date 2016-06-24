@@ -11,11 +11,11 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
 
 	inflect.irregular "erro", "erros"
 	inflect.irregular "item", "itens"
-	inflect.irregular "receita", "receitas"
+	inflect.irregular "orientacao", "orientacoes"
   inflect.irregular "item_orientacao", "itens_orientacao"
+	inflect.irregular "receita", "receitas"
   inflect.irregular "item_receita", "itens_receita"
 	inflect.irregular "medicamento", "medicamentos"
-	inflect.irregular "orientacao", "orientacoes"
 	inflect.irregular "receituario", "receituarios"
 	inflect.irregular "unidade_medida", "unidades_medida"
 	inflect.irregular "usuario", "usuarios"

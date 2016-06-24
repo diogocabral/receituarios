@@ -6,12 +6,16 @@ Rails.application.routes.draw do
 
   resources :medicamentos
 
-  resources :orientacoes
+  resources :orientacoes do
+    member do
+      post 'exportar'
+    end
+  end
 
   resources :receitas do
     member do
       get 'preparar'
-      get 'export'
+      post 'exportar'
     end
   end
 

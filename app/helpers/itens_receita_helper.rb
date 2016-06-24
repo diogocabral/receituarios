@@ -1,6 +1,6 @@
-module ItensHelper
+module ItensReceitaHelper
 
-	def link_to_add_item(name, f, association, html_classes)
+	def link_to_add_item_receita(name, f, association, html_classes)
 		new_object = f.object.send(association).klass.new
 		id = new_object.object_id
 		fields = f.fields_for(association, new_object, child_index: id) do |builder|

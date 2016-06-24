@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20160623192610) do
   create_table "itens_orientacao", force: :cascade do |t|
     t.string   "nome",                   null: false
     t.integer  "id_item_orientacao_sup"
-    t.integer  "id_orientacao",          null: false
+    t.integer  "id_orientacao"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
