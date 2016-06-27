@@ -9,6 +9,8 @@ class ItemReceita < ActiveRecord::Base
 	belongs_to :unidade_medida,
 		:foreign_key => 'id_unidade_medida'
 
-	validates_presence_of :medicamento, :unidade_medida, :quantidade, :instrucoes_de_uso
+	validates_presence_of :medicamento, :unidade_medida, :quantidade, :instrucoes_uso
+
+  validates :pagina_separada, inclusion: [true, false]
 
 end

@@ -1,7 +1,7 @@
 class OrientacoesController < ApplicationController
     
   before_action :authenticate_usuario!
-  before_action :set_orientacao, only: [:show, :edit, :update, :destroy]
+  before_action :set_orientacao, only: [:show, :edit, :update, :exportar, :destroy]
 
   # GET /orientacoes
   def index
@@ -50,6 +50,9 @@ class OrientacoesController < ApplicationController
 
   # GET /orientacoes/1/exportar
   def exportar
+    orientacao_pdf = OrientacaoPdf.new(@orientacao)
+
+    send_data orientacao_pdf.render, filename: "orientacao_#{@orientacao.id}.pdf", type: "application/pdf", disposition: "inline"
   end
 
   private

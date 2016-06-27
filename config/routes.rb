@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :orientacoes do
     member do
-      post 'exportar'
+      get 'exportar'
     end
   end
 

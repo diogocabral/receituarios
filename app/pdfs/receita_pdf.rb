@@ -1,6 +1,6 @@
 class ReceitaPdf < Prawn::Document
 	
-  def initialize(receita, nome_paciente, data, observacoes, numero_copias)
+  def initialize(receita)
     super(page_size: 'A4', margin: [50, 60, 30, 60], skip_page_creation: true)
 
     font_families["Arial"] = {
@@ -9,18 +9,24 @@ class ReceitaPdf < Prawn::Document
     }
 
     @receita = receita
-    @nome_paciente = nome_paciente
-    @data = data
-    @observacoes = observacoes
-    @numero_copias = numero_copias
 
-    @numero_copias.times do
+    @receita.numero_copias.to_i.times do
       bounding_box [bounds.left, bounds.top - 150], width: bounds.width, height: 200 do
         start_new_page
 
         font "Arial"
         
-        add_body
+        add_body(@receita.itens_receita.select { |item| item.pagina_separada == false})
+      end
+    end
+
+    @receita.numero_copias.to_i.times do
+      bounding_box [bounds.left, bounds.top - 150], width: bounds.width, height: 200 do
+        start_new_page
+
+        font "Arial"
+        
+        add_body(@receita.itens_receita.select { |item| item.pagina_separada == true})
       end
     end
 
@@ -56,11 +62,11 @@ class ReceitaPdf < Prawn::Document
 
       move_down 30
 
-      text "<b>Nome:</b> #{@nome_paciente}", :size => 12, :inline_format => true
+      text "<b>Nome:</b> #{@receita.paciente}", :size => 12, :inline_format => true
   	end
 
-  	def add_body
-  		@receita.itens_receita.each do |item|
+  	def add_body(itens)
+  		itens.each do |item|
         unidade_medida = item.unidade_medida.nome.pluralize(item.quantidade).downcase
 
         text_size = width_of "<b>#{item.medicamento.nome}</b> #{item.quantidade} #{unidade_medida}", 
@@ -79,7 +85,7 @@ class ReceitaPdf < Prawn::Document
           :inline_format => true
 
         indent(20) do
-  		    text item.instrucoes_de_uso, :size => 10
+  		    text item.instrucoes_uso, :size => 10
           if item.sugestao_horario?
             text "Sugestão de horário: " + item.sugestao_horario, :size => 9
           end
@@ -89,11 +95,11 @@ class ReceitaPdf < Prawn::Document
   		end
 
       move_down 50
-      text @observacoes, align: :center
+      text @receita.observacoes, align: :center
   	end
 
     def add_signature
-      text "Maceió, #{@data}", :size => 10, align: :center
+      text "Maceió, #{@receita.data}", :size => 10, align: :center
     end
 
     def add_footer

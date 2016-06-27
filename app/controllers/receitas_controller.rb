@@ -50,24 +50,24 @@ class ReceitasController < ApplicationController
 
   # GET /receitas/1/preparar
   def preparar
-    @data = Time.now.strftime("%d/%m/%Y")
-    @numero_copias = 1
+    @receita.data = Time.now.strftime("%d/%m/%Y")
+    @receita.numero_copias = 1
   end
 
   # GET /receitas/1/exportar
   def exportar
-    paciente = params[:paciente]
-    data = params[:data]
-    observacoes = params[:observacoes]
-    numero_copias = params[:numero_copias].to_i
+    @receita.paciente = receita_params[:paciente]
+    @receita.data = receita_params[:data]
+    @receita.observacoes = receita_params[:observacoes]
+    @receita.numero_copias = receita_params[:numero_copias].to_i
 
-    if params[:id_orientacao].present?
-      orientacao = Orientacao.find(params[:id_orientacao])
+    if @receita.transient_attributes_valid?
+      receita_pdf = ReceitaPdf.new(@receita)
+
+      send_data receita_pdf.render, filename: "receita_#{@receita.id}.pdf", type: "application/pdf", disposition: "inline"
+    elsif
+      render :preparar
     end
-
-    receita_pdf = ReceitaPdf.new(@receita, paciente, data, observacoes, numero_copias)
-
-    send_data receita_pdf.render, filename: "receita_#{@receita.id}.pdf", type: "application/pdf", disposition: "inline"
   end
 
   private
@@ -78,13 +78,14 @@ class ReceitasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def receita_params
-      params.require(:receita).permit(:nome, itens_receita_attributes: [
+      params.require(:receita).permit(:nome, :paciente, :data, :observacoes, :numero_copias, :orientacao, :paciente, itens_receita_attributes: [
         :id,
         :id_medicamento, 
         :id_unidade_medida, 
         :quantidade, 
-        :instrucoes_de_uso, 
+        :instrucoes_uso, 
         :sugestao_horario,
+        :pagina_separada,
         :_destroy])
     end
     

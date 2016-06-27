@@ -1,10 +1,14 @@
 <tr>
 	<%= item.hidden_field :id %>
-	<td><%= item.collection_select(:id_medicamento, Medicamento.all, :id, :nome, {:prompt => 'Selecione'}, {:class => 'form-control'}) %></td>
-	<td><%= item.collection_select(:id_unidade_medida, UnidadeMedida.all, :id, :nome, {:prompt => 'Selecione'}, {:class => 'form-control'}) %></td>
+	<td><%= item.collection_select(:id_medicamento, Medicamento.order(:nome).all, :id, :nome, {:prompt => 'Selecione'}, {:class => 'form-control'}) %></td>
+	<td><%= item.collection_select(:id_unidade_medida, UnidadeMedida.order(:nome).all, :id, :nome, {:prompt => 'Selecione'}, {:class => 'form-control'}) %></td>
 	<td><%= item.text_field :quantidade, :class => 'form-control' %></td>
-	<td><%= item.text_field :instrucoes_de_uso, :class => 'form-control' %></td>
+	<td><%= item.text_field :instrucoes_uso, :class => 'form-control' %></td>
 	<td><%= item.text_field :sugestao_horario, :class => 'form-control' %></td>
+	<td>
+		<%= item.radio_button :pagina_separada, true, :class => 'radio-inline' %> Sim
+		<%= item.radio_button :pagina_separada, false, :class => 'radio-inline' %> Não
+	</td>
 	<td>
 		<%= item.hidden_field :_destroy %>
 		<%= link_to 'Remover', '#', :class => 'remove_item btn btn-default' %>

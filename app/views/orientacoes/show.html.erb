@@ -20,5 +20,6 @@
   </ul>
 </p>
 
+<%= link_to 'Gerar Orientação', exportar_orientacao_path(@orientacao), :class => 'btn btn-default', target: "_blank" %>
 <%= link_to 'Editar', edit_orientacao_path(@orientacao), :class => 'btn btn-default' %>
 <%= link_to 'Voltar', orientacoes_path, :class => 'btn btn-default' %>

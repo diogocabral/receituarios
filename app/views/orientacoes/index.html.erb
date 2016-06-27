@@ -16,6 +16,7 @@
     <% @orientacoes.each do |orientacao| %>
       <tr>
         <td><%= link_to "#{orientacao.nome}", orientacao %></td>
+        <td style="width: 150px;"><%= link_to 'Gerar Orientação', exportar_orientacao_path(orientacao), target: "_blank" %></td>
         <td style="width: 80px;"><%= link_to 'Editar', edit_orientacao_path(orientacao) %></td>
         <td style="width: 80px;"><%= link_to 'Excluir', orientacao, method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
       </tr>

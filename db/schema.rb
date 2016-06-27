@@ -29,8 +29,9 @@ ActiveRecord::Schema.define(version: 20160623192610) do
     t.integer  "id_medicamento",    null: false
     t.integer  "id_unidade_medida", null: false
     t.integer  "quantidade",        null: false
-    t.string   "instrucoes_de_uso"
+    t.string   "instrucoes_uso"
     t.string   "sugestao_horario"
+    t.boolean  "pagina_separada"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end
