@@ -4,6 +4,8 @@ lock '3.5.0'
 set :application, 'receituarios'
 set :repo_url, 'git@github.com:diogocabral/receituarios.git'
 
+set :rvm_type, :system
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
@@ -47,3 +49,19 @@ namespace :deploy do
   end
 
 end
+
+namespace :db do
+  desc "Create the database"
+  task :configure do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      within release_path do
+        execute :rake, "db:drop RAILS_ENV=#{fetch(:rails_env)}"
+        execute :rake, "db:create RAILS_ENV=#{fetch(:rails_env)}"
+        execute :rake, "db:migrate RAILS_ENV=#{fetch(:rails_env)}"
+        execute :rake, "db:seed RAILS_ENV=#{fetch(:rails_env)}"
+      end
+    end
+  end
+end
+
+after 'deploy', 'db:configure'

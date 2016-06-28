@@ -45,7 +45,7 @@ class OrientacoesController < ApplicationController
   # DELETE /orientacoes/1
   def destroy
     @orientacao.destroy
-    redirect_to receitas_url, notice: 'Orientação foi excluída com sucesso.'
+    redirect_to orientacoes_url, notice: 'Orientação foi excluída com sucesso.'
   end
 
   # GET /orientacoes/1/exportar
