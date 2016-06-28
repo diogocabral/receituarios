@@ -9,11 +9,11 @@ default: &default
   pool: 5
   timeout: 5000
   host: localhost
-  username: diogo
-  password: 123456
 
 development:
   <<: *default
+  username: diogo
+  password: 123456
   database: receituarios_development
 
 # Warning: The database defined as "test" will be erased and
@@ -21,8 +21,12 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  username: diogo
+  password: 123456
   database: receituarios_test
 
 production:
   <<: *default
+  username: receituarios
+  password: 123456
   database: receituarios_production
