@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160623192610) do
+ActiveRecord::Schema.define(version: 20160629025321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20160623192610) do
 
   create_table "medicamentos", force: :cascade do |t|
     t.string   "nome",       null: false
+    t.integer  "id_uso",     null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -57,6 +58,12 @@ ActiveRecord::Schema.define(version: 20160623192610) do
   create_table "unidades_medida", force: :cascade do |t|
     t.string   "nome",       null: false
     t.string   "sigla"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "usos", force: :cascade do |t|
+    t.string   "nome"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -84,4 +91,5 @@ ActiveRecord::Schema.define(version: 20160623192610) do
   add_foreign_key "itens_receita", "medicamentos", column: "id_medicamento"
   add_foreign_key "itens_receita", "receitas", column: "id_receita"
   add_foreign_key "itens_receita", "unidades_medida", column: "id_unidade_medida"
+  add_foreign_key "medicamentos", "usos", column: "id_uso"
 end

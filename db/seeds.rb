@@ -16,12 +16,15 @@ UnidadeMedida.create(nome: 'COMPRIMIDO', sigla: 'CP')
 UnidadeMedida.create(nome: 'MILILITRO', sigla: 'mL')
 UnidadeMedida.create(nome: 'FRASCO', sigla: 'F')
 
-Medicamento.create(nome: 'ALIVIUM 100 mg/mL')
-Medicamento.create(nome: 'CEFALEXINA 500 mg')
-Medicamento.create(nome: 'MECLIN 25 mg')
-Medicamento.create(nome: 'NOVALGINA 500 mg')
-Medicamento.create(nome: 'RINOSORO JET')
-Medicamento.create(nome: 'TRAMAL 100 mg/mL')
+Uso.create(nome: 'ORAL')
+Uso.create(nome: 'NASAL')
+
+Medicamento.create(nome: 'ALIVIUM 100 mg/mL', uso: Uso.find(1))
+Medicamento.create(nome: 'CEFALEXINA 500 mg', uso: Uso.find(1))
+Medicamento.create(nome: 'MECLIN 25 mg', uso: Uso.find(1))
+Medicamento.create(nome: 'NOVALGINA 500 mg', uso: Uso.find(1))
+Medicamento.create(nome: 'RINOSORO JET', uso: Uso.find(2))
+Medicamento.create(nome: 'TRAMAL 100 mg/mL', uso: Uso.find(1))
 
 Receita.create(nome: 'Pós-operatório de Desvio de Septo e Turmbinectomia', itens_receita: [
   ItemReceita.new(medicamento: Medicamento.find(2), unidade_medida: UnidadeMedida.find(2), quantidade: 28, instrucoes_uso: 'Tomar um comprimido de 6/6h', pagina_separada: false),

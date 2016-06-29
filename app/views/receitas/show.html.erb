@@ -1,5 +1,5 @@
 <% if notice.present? %>
-  <div class="alert alert-success" role="alert"><p id="notice"><%= notice %></p></div>
+  <div class="alert alert-info" role="alert"><p id="notice"><%= notice %></p></div>
 <% end %>
 
 <p>
@@ -8,18 +8,15 @@
 
 	<ul>
 		<% @receita.itens_receita.each do |item| %>
-		  <li><%= item.medicamento.nome %> <%= pluralize(item.quantidade, item.unidade_medida.nome).upcase %> 
-		  	( Página Separada: 
-		  		<% if item.pagina_separada %>
-		  		Sim
-		  		<% elsif %>
-		  		Não
-		  		<% end %>)
-		  	<br />
-		  	<%= item.instrucoes_uso %><br />
+		  <li>
+		  	Uso <%= item.medicamento.uso.nome %><br />
+		  	Medicamento: <%= item.medicamento.nome %><br />
+		  	Quantidade: <%= pluralize(item.quantidade, item.unidade_medida.nome).upcase %><br />
+		  	Instruções de Uso: <%= item.instrucoes_uso %><br />
 		  	<% if item.sugestao_horario? %>
 		  	Sugestão de horário: <%= item.sugestao_horario %></li>
 		  	<% end %>
+		  	Página Separada: <%= human_boolean item.pagina_separada %>
 		<% end %>
 	</ul>
 </p>

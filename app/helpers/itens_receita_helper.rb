@@ -10,4 +10,8 @@ module ItensReceitaHelper
 		link_to(name, "#", class: "add_item " + html_classes, data: {id: id, fields: fields.gsub("\n", "")})
 	end
 
+  def human_boolean(boolean)
+    boolean ? 'Sim' : 'Não'
+  end
+
 end

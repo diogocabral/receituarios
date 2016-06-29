@@ -1,10 +1,15 @@
 <% if notice.present? %>
-  <div class="alert alert-success" role="alert"><p id="notice"><%= notice %></p></div>
+  <div class="alert alert-info" role="alert"><p id="notice"><%= notice %></p></div>
 <% end %>
 
 <p>
   <strong>Nome:</strong>
   <%= @unidade_medida.nome %>
+</p>
+
+<p>
+  <strong>Sigla:</strong>
+  <%= @unidade_medida.sigla %>
 </p>
 
 <%= link_to 'Editar', edit_unidade_medida_path(@unidade_medida), :class => 'btn btn-default' %>

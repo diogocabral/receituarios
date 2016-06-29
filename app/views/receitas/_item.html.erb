@@ -2,7 +2,7 @@
 	<%= item.hidden_field :id %>
 	<td><%= item.collection_select(:id_medicamento, Medicamento.order(:nome).all, :id, :nome, {:prompt => 'Selecione'}, {:class => 'form-control'}) %></td>
 	<td><%= item.collection_select(:id_unidade_medida, UnidadeMedida.order(:nome).all, :id, :nome, {:prompt => 'Selecione'}, {:class => 'form-control'}) %></td>
-	<td><%= item.text_field :quantidade, :class => 'form-control' %></td>
+	<td><%= item.text_field :quantidade, :class => 'form-control' %></td>	
 	<td><%= item.text_field :instrucoes_uso, :class => 'form-control' %></td>
 	<td><%= item.text_field :sugestao_horario, :class => 'form-control' %></td>
 	<td>

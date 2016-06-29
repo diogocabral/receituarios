@@ -18,6 +18,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
 	inflect.irregular "medicamento", "medicamentos"
 	inflect.irregular "receituario", "receituarios"
 	inflect.irregular "unidade_medida", "unidades_medida"
+	inflect.irregular "uso", "usos"
 	inflect.irregular "usuario", "usuarios"
 end
 
