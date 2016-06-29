@@ -85,7 +85,7 @@ class ReceitasController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_receita
-      @receita = Receita.find(params[:id])
+      @receita = Receita.eager_load(:itens_receita => [:unidade_medida, :medicamento => [:uso]]).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -11,7 +11,8 @@ class ReceitaPdf < Prawn::Document
     @receita = receita
 
     mesma_pagina = @receita.itens_receita.select { |item| item.pagina_separada == false}
-    pagina_separada = @receita.itens_receita.select { |item| item.pagina_separada == true}
+
+    itens_by_uso = mesma_pagina.group_by { |item| item.medicamento.uso }
 
     @receita.numero_copias.to_i.times do
       bounding_box [bounds.left, bounds.top - 150], width: bounds.width, height: 200 do
@@ -19,7 +20,25 @@ class ReceitaPdf < Prawn::Document
 
         font "Arial"
         
-        add_body(mesma_pagina)
+        add_body(itens_by_uso)
+      end
+    end
+
+    pagina_separada = @receita.itens_receita.select { |item| item.pagina_separada == true}
+
+    pagina_separada.each do |item|
+      itens_by_uso = Hash.new
+
+      itens_by_uso[item.medicamento.uso] = [item]
+
+      @receita.numero_copias.to_i.times do
+        bounding_box [bounds.left, bounds.top - 150], width: bounds.width, height: 200 do
+          start_new_page
+
+          font "Arial"
+          
+          add_body(itens_by_uso)
+        end
       end
     end
 
@@ -52,33 +71,51 @@ class ReceitaPdf < Prawn::Document
       text "<b>Nome:</b> #{@receita.paciente}", :size => 12, :inline_format => true
   	end
 
-  	def add_body(itens)
-  		itens.each do |item|
-        unidade_medida = item.unidade_medida.nome.pluralize(item.quantidade).downcase
+  	def add_body(itens_grouped_by_uso)
 
-        text_size = width_of "<b>#{item.medicamento.nome}</b> #{item.quantidade} #{unidade_medida}", 
-          :size => 12, 
+      itens_grouped_by_uso.each do |key, value|
+
+        text "<b>Uso #{key.nome.downcase}:</b>",
           :inline_format => true
 
-        separator_size = width_of "-", 
-          :size => 12, 
-          :inline_format => true
-
-        separators = "-" * ((450 - text_size)/separator_size)
-
-        text "<b>#{item.medicamento.nome}</b> #{separators} #{item.quantidade} #{unidade_medida}", 
-          :size => 12, 
-          align: :center,
-          :inline_format => true
+        move_down 10
 
         indent(20) do
-  		    text item.instrucoes_uso, :size => 10
-          if item.sugestao_horario?
-            text "Sugestão de horário: " + item.sugestao_horario, :size => 9
+          value.each_with_index do |item, index|
+            unidade_medida = item.unidade_medida.nome.pluralize(item.quantidade).downcase
+
+            text_size = width_of "<b>#{index + 1}) #{item.medicamento.nome}</b> #{item.quantidade} #{unidade_medida.downcase}", 
+              :size => 12, 
+              :inline_format => true
+
+            separator_size = width_of "-", 
+              :size => 12, 
+              :inline_format => true
+
+            separators = "-" * ((450 - text_size)/separator_size)
+
+            text "<b>#{index + 1}) #{item.medicamento.nome}</b> #{separators} #{item.quantidade} #{unidade_medida}", 
+              :size => 12, 
+              align: :center,
+              :inline_format => true
+
+            indent(20) do
+
+              move_down 5
+
+      		    text item.instrucoes_uso, :size => 10
+              if item.sugestao_horario?
+
+                move_down 5
+
+                text "Sugestão de horário: " + item.sugestao_horario, :size => 9
+              end
+            end
+
+            move_down 20
+
           end
         end
-
-        move_down 20
   		end
 
       move_down 50
