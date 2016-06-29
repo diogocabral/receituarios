@@ -56,6 +56,9 @@ gem 'pg'
 #pdf
 gem 'prawn'
 
+#combine pdfs
+gem 'combine_pdf'
+
 #authentication
 gem 'devise'
 

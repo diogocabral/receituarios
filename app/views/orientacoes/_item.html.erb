@@ -1,6 +1,6 @@
 <li>
   <%= item.hidden_field :id %>  
-  <%= item.text_field :nome %>
+  <%= item.text_field :nome, :class => 'form-control' %>
   <%= item.hidden_field :_destroy %>
   <%= link_to 'Remover', '#', :class => 'remove_item btn btn-default btn-sm' %>
   <%= link_to_add_subitem_orientacao "Adicionar Subitem", item, :itens_orientacao, 'add_subitem btn btn-default btn-sm' %>

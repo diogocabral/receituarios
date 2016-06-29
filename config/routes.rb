@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   resources :receitas do
     member do
       get 'preparar'
-      post 'exportar'
+      get 'exportar'
     end
   end
 

@@ -12,7 +12,7 @@
   </div>
 <% end %>
 
-<%= form_for @receita, method: :post, :url => exportar_receita_path(@receita), :html => {:target => '_blank', :class => 'form-horizontal', :role => 'form'} do |f| %>
+<%= form_for @receita, method: :get, :url => exportar_receita_path(@receita), :html => {:target => '_blank', :class => 'form-horizontal', :role => 'form'} do |f| %>
 
   <div class="form-group">
     <%= f.label :paciente, "Paciente:" %>

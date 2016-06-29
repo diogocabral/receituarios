@@ -33,12 +33,10 @@ class OrientacaoPdf < Prawn::Document
 
     def add_header
       image "#{Rails.root}/app/assets/images/logo.jpg", position: :left, width: 80
-
-      move_cursor_to bounds.top
-
-      move_down 40
-
-      text "ORIENTAÇÕES - " + @orientacao.nome, align: :center, size: 15
+      
+      bounding_box [bounds.left + 80, bounds.top - 20], width: bounds.width - 80, height: 40 do
+        text "ORIENTAÇÕES - " + @orientacao.nome, align: :center, valign: :bottom, size: 15
+      end
 
       move_down 10
     end

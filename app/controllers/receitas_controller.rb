@@ -54,17 +54,29 @@ class ReceitasController < ApplicationController
     @receita.numero_copias = 1
   end
 
-  # GET /receitas/1/exportar
+  # POST /receitas/1/exportar
   def exportar
     @receita.paciente = receita_params[:paciente]
     @receita.data = receita_params[:data]
     @receita.observacoes = receita_params[:observacoes]
     @receita.numero_copias = receita_params[:numero_copias].to_i
 
+    if receita_params[:orientacao].present?
+      @receita.orientacao = Orientacao.find(receita_params[:orientacao])
+    end
+
     if @receita.transient_attributes_valid?
       receita_pdf = ReceitaPdf.new(@receita)
 
-      send_data receita_pdf.render, filename: "receita_#{@receita.id}.pdf", type: "application/pdf", disposition: "inline"
+      combined_file = CombinePDF.new
+      combined_file << CombinePDF.parse(receita_pdf.render)
+
+      if @receita.orientacao.present?
+        orientacao_pdf = OrientacaoPdf.new(@receita.orientacao)
+        combined_file << CombinePDF.parse(orientacao_pdf.render)
+      end
+
+      send_data combined_file.to_pdf, filename: "receita_#{@receita.id}.pdf", type: "application/pdf", disposition: "inline"
     elsif
       render :preparar
     end

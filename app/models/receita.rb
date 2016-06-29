@@ -12,7 +12,6 @@ class Receita < ActiveRecord::Base
 
   attr_accessor :paciente, :data, :numero_copias, :observacoes, :orientacao
 
-
   def transient_attributes_valid?
     errors.add(:paciente, 'não pode ser vazio.') if paciente.blank?
     errors.add(:data, 'não pode ser vazia.') if data.blank?

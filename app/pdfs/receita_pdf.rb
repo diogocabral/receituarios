@@ -10,15 +10,8 @@ class ReceitaPdf < Prawn::Document
 
     @receita = receita
 
-    @receita.numero_copias.to_i.times do
-      bounding_box [bounds.left, bounds.top - 150], width: bounds.width, height: 200 do
-        start_new_page
-
-        font "Arial"
-        
-        add_body(@receita.itens_receita.select { |item| item.pagina_separada == false})
-      end
-    end
+    mesma_pagina = @receita.itens_receita.select { |item| item.pagina_separada == false}
+    pagina_separada = @receita.itens_receita.select { |item| item.pagina_separada == true}
 
     @receita.numero_copias.to_i.times do
       bounding_box [bounds.left, bounds.top - 150], width: bounds.width, height: 200 do
@@ -26,7 +19,7 @@ class ReceitaPdf < Prawn::Document
 
         font "Arial"
         
-        add_body(@receita.itens_receita.select { |item| item.pagina_separada == true})
+        add_body(mesma_pagina)
       end
     end
 
@@ -35,7 +28,7 @@ class ReceitaPdf < Prawn::Document
         add_header
       end
 
-      bounding_box [bounds.left, bounds.bottom + 300], width: bounds.width do
+      bounding_box [bounds.left, bounds.bottom + 200], width: bounds.width do
         add_signature
       end
 
@@ -50,15 +43,9 @@ class ReceitaPdf < Prawn::Document
   	def add_header
       image "#{Rails.root}/app/assets/images/logo.jpg", position: :left, width: 80
 
-      move_cursor_to bounds.top
-
-      move_down 40
-
-  		text "Receituário", align: :center, size: 20
-
-      move_down 10
-
-      stroke_horizontal_rule
+      bounding_box [bounds.left + 80, bounds.top - 20], width: bounds.width - 80, height: 40 do
+        text "Receituário", align: :center, valign: :bottom, size: 20
+      end
 
       move_down 30
 

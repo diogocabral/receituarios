@@ -39,6 +39,30 @@ set :rvm_type, :system
 
 namespace :deploy do
 
+  desc "Stop application"
+
+  task :stop do
+    on roles(:web), in: :sequence, wait: 5 do
+      execute :touch, release_path.join('/tmp/stop.txt')
+    end
+  end
+
+  desc "Start application"
+
+  task :start do
+    on roles(:web), in: :sequence, wait: 5 do
+      run "rm -f #{current_path}/tmp/stop.txt"
+    end
+  end
+
+  desc 'Restart application'
+
+  task :restart do
+    on roles(:web), in: :sequence, wait: 5 do
+      execute :touch, release_path.join('tmp/restart.txt')
+    end
+  end
+
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
