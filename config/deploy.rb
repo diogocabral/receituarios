@@ -43,7 +43,7 @@ namespace :deploy do
 
   task :stop do
     on roles(:web), in: :sequence, wait: 5 do
-      execute :touch, release_path.join('/tmp/stop.txt')
+      execute :touch, release_path.join('tmp/stop.txt')
     end
   end
 
@@ -79,11 +79,11 @@ namespace :db do
   task :configure do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       within release_path do
+        execute :rake, "db:drop RAILS_ENV=#{fetch(:rails_env)}"
+        execute :rake, "db:create RAILS_ENV=#{fetch(:rails_env)}"
         execute :rake, "db:migrate RAILS_ENV=#{fetch(:rails_env)}"
         execute :rake, "db:seed RAILS_ENV=#{fetch(:rails_env)}"
       end
     end
   end
 end
-
-after 'deploy', 'db:configure'
