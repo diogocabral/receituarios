@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UnidadeMedidasControllerTest < ActionController::TestCase
+class UnidadesMedidaControllerTest < ActionController::TestCase
   setup do
     @unidade_medida = unidades_medida(:one)
   end

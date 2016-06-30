@@ -18,7 +18,7 @@ class ReceitasControllerTest < ActionController::TestCase
 
   test "should create receita" do
     assert_difference('Receita.count') do
-      post :create, receita: { paciente: @receita.paciente }
+      post :create, receita: { nome: @receita.nome }
     end
 
     assert_redirected_to receita_path(assigns(:receita))
@@ -35,7 +35,7 @@ class ReceitasControllerTest < ActionController::TestCase
   end
 
   test "should update receita" do
-    patch :update, id: @receita, receita: { paciente: @receita.paciente }
+    patch :update, id: @receita, receita: { nome: @receita.nome }
     assert_redirected_to receita_path(assigns(:receita))
   end
 
