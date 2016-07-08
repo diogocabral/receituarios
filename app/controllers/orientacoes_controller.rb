@@ -1,6 +1,6 @@
 class OrientacoesController < ApplicationController
     
-  before_action :authenticate_usuario!
+  before_action :authenticate_usuario!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_orientacao, only: [:show, :edit, :update, :exportar, :destroy]
 
   # GET /orientacoes
@@ -58,7 +58,7 @@ class OrientacoesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_orientacao
-      @orientacao = Orientacao.find(params[:id])
+      @orientacao = Orientacao.includes(:itens_orientacao => :itens_orientacao).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -29,7 +29,7 @@ Medicamento.create(nome: 'TRAMAL 100 mg/mL', uso: Uso.find(1))
 Receita.create(nome: 'Pós-operatório de Desvio de Septo e Turmbinectomia', itens_receita: [
   ItemReceita.new(medicamento: Medicamento.find(2), unidade_medida: UnidadeMedida.find(2), quantidade: 28, instrucoes_uso: 'Tomar um comprimido de 6/6h', pagina_separada: false),
   ItemReceita.new(medicamento: Medicamento.find(4), unidade_medida: UnidadeMedida.find(1), quantidade: 1, instrucoes_uso: 'Tomar um comprimido de 6/6h se dor', pagina_separada: false),
-  ItemReceita.new(medicamento: Medicamento.find(5), unidade_medida: UnidadeMedida.find(3), quantidade: 1, instrucoes_uso: 'Aplicar um jato em cada narina de 2/2h', pagina_separada: false)
+  ItemReceita.new(medicamento: Medicamento.find(5), unidade_medida: UnidadeMedida.find(4), quantidade: 1, instrucoes_uso: 'Aplicar um jato em cada narina de 2/2h', pagina_separada: false)
 ])
 
 Orientacao.create(nome: 'AMIGDALECTOMIA COM OU SEM ADENOIDECTOMIA', itens_orientacao: [

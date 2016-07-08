@@ -1,6 +1,6 @@
 class ReceitasController < ApplicationController
 
-  before_action :authenticate_usuario!
+  before_action :authenticate_usuario!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_receita, only: [:show, :edit, :exportar, :preparar, :update, :destroy]
 
   # GET /receitas
@@ -85,7 +85,7 @@ class ReceitasController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_receita
-      @receita = Receita.eager_load(:itens_receita => [:unidade_medida, :medicamento => [:uso]]).find(params[:id])
+      @receita = Receita.includes(:itens_receita => [:unidade_medida, :medicamento => [:uso]]).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

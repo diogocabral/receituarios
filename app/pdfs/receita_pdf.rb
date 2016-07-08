@@ -15,7 +15,7 @@ class ReceitaPdf < Prawn::Document
     itens_by_uso = mesma_pagina.group_by { |item| item.medicamento.uso }
 
     @receita.numero_copias.to_i.times do
-      bounding_box [bounds.left, bounds.top - 150], width: bounds.width, height: 200 do
+      bounding_box [bounds.left, bounds.top - 150], width: bounds.width, height: 300 do
         start_new_page
 
         font "Arial"
@@ -45,6 +45,10 @@ class ReceitaPdf < Prawn::Document
     repeat :all do
       bounding_box [bounds.left, bounds.top], width: bounds.width do
         add_header
+      end
+
+      bounding_box [bounds.left, bounds.bottom + 300], width: bounds.width do
+        text @receita.observacoes, align: :center
       end
 
       bounding_box [bounds.left, bounds.bottom + 200], width: bounds.width do
@@ -117,9 +121,6 @@ class ReceitaPdf < Prawn::Document
           end
         end
   		end
-
-      move_down 50
-      text @receita.observacoes, align: :center
   	end
 
     def add_signature

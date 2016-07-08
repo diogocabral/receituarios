@@ -1,11 +1,11 @@
 class MedicamentosController < ApplicationController
 
-  before_action :authenticate_usuario!
+  before_action :authenticate_usuario!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_medicamento, only: [:show, :edit, :update, :destroy]
 
   # GET /medicamentos
   def index
-    @medicamentos = Medicamento.order(:nome).all
+    @medicamentos = Medicamento.eager_load(:uso).order(:nome).all
   end
 
   # GET /medicamentos/1
@@ -50,7 +50,7 @@ class MedicamentosController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_medicamento
-      @medicamento = Medicamento.find(params[:id])
+      @medicamento = Medicamento.eager_load(:uso).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
