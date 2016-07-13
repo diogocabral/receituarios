@@ -21,4 +21,14 @@ class Receita < ActiveRecord::Base
     errors.empty?
   end
 
+  def has_parameters?
+    itens_receita.each do |item_receita|
+      if item_receita.parameters_count > 0
+        return true
+      end
+    end
+
+    return false
+  end
+
 end

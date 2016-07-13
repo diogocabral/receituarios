@@ -50,7 +50,7 @@ class ReceitasController < ApplicationController
 
   # GET /receitas/1/preparar
   def preparar
-    @receita.data = Time.now.strftime("%d/%m/%Y")
+    @receita.data = Time.now.strftime('%d/%m/%Y')
     @receita.numero_copias = 1
   end
 
@@ -60,6 +60,16 @@ class ReceitasController < ApplicationController
     @receita.data = receita_params[:data]
     @receita.observacoes = receita_params[:observacoes]
     @receita.numero_copias = receita_params[:numero_copias].to_i
+
+    parameters = receita_params[:itens_receita_attributes]
+
+    @receita.itens_receita.each_with_index do |item, item_index|
+      @receita.itens_receita[item_index].parameters = []
+
+      item.parameters_count.times do |index|
+        @receita.itens_receita[item_index].parameters[index] = parameters[item.id.to_s][:parameters_attributes][index.to_s][:value]
+      end
+    end
 
     if receita_params[:orientacao].present?
       @receita.orientacao = Orientacao.find(receita_params[:orientacao])
@@ -98,7 +108,7 @@ class ReceitasController < ApplicationController
         :instrucoes_uso, 
         :sugestao_horario,
         :pagina_separada,
-        :_destroy])
+        :_destroy, {parameters_attributes: [:value]}])
     end
     
 end

@@ -13,4 +13,14 @@ class ItemReceita < ActiveRecord::Base
 
   validates :pagina_separada, inclusion: [true, false]
 
+  attr_accessor :parameters
+
+  def has_parameters?
+    instrucoes_uso.scan(/\{\p{Digit}\}/).length > 0
+  end
+
+  def parameters_count
+    instrucoes_uso.scan(/\{\p{Digit}\}/).length
+  end
+
 end

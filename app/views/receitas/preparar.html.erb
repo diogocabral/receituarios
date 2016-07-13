@@ -24,6 +24,18 @@
     <%= f.text_field :data, :class => 'form-control' %>
   </div>
 
+  <% if @receita.has_parameters? %>
+    <% @receita.itens_receita.each do |item_receita| %>
+
+      <div class="form-group">
+        <%= "#{item_receita.medicamento.nome} - #{item_receita.instrucoes_uso}" %>
+        <% item_receita.parameters_count.times do |index| %>
+          <%= text_field_tag "receita[itens_receita_attributes][#{item_receita.id}][parameters_attributes][#{index}][value]" %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
   <div class="form-group">
     <%= f.label :observacoes, "Observações:" %>
     <%= f.text_area :observacoes, :class => 'form-control', size: "25x5" %>
@@ -31,7 +43,7 @@
 
   <div class="form-group">
     <%= f.label :numero_copias, "Número de Cópias:" %>
-    <%= f.text_field :numero_copias, :class => 'form-control' %>
+    <%= f.number_field :numero_copias, :class => 'form-control', :min => 1 %>
   </div>
 
   <div class="form-group">
