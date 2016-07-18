@@ -10,7 +10,7 @@ class Receita < ActiveRecord::Base
 
 	accepts_nested_attributes_for :itens_receita, allow_destroy: true
 
-  attr_accessor :paciente, :data, :numero_copias, :observacoes, :orientacao
+  attr_accessor :paciente, :data, :numero_copias, :observacoes, :orientacoes
 
   def transient_attributes_valid?
     errors.add(:data, 'não pode ser vazia.') if data.blank?

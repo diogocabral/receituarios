@@ -71,8 +71,13 @@ class ReceitasController < ApplicationController
       end
     end
 
-    if receita_params[:orientacao].present?
-      @receita.orientacao = Orientacao.find(receita_params[:orientacao])
+    @receita.orientacoes = []
+    if receita_params[:orientacoes].present?
+      # Using select to avoid the first empty element. It's probably a bug on rails multiselect helper.
+      # http://stackoverflow.com/questions/8929230/why-is-the-first-element-always-blank-in-my-rails-multi-select-using-an-embedde
+      receita_params[:orientacoes].select { |item| item.present? }.each do |id_orientacao|
+        @receita.orientacoes << Orientacao.find(id_orientacao)
+      end      
     end
 
     if @receita.transient_attributes_valid?
@@ -81,9 +86,11 @@ class ReceitasController < ApplicationController
       combined_file = CombinePDF.new
       combined_file << CombinePDF.parse(receita_pdf.render)
 
-      if @receita.orientacao.present?
-        orientacao_pdf = OrientacaoPdf.new(@receita.orientacao)
-        combined_file << CombinePDF.parse(orientacao_pdf.render)
+      if @receita.orientacoes.any?
+        @receita.orientacoes.each do |orientacao|
+          orientacao_pdf = OrientacaoPdf.new(orientacao)
+          combined_file << CombinePDF.parse(orientacao_pdf.render)
+        end
       end
 
       send_data combined_file.to_pdf, filename: "receita_#{@receita.id}.pdf", type: "application/pdf", disposition: "inline"
@@ -100,15 +107,17 @@ class ReceitasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def receita_params
-      params.require(:receita).permit(:nome, :paciente, :data, :observacoes, :numero_copias, :orientacao, :paciente, itens_receita_attributes: [
-        :id,
-        :id_medicamento, 
-        :id_unidade_medida, 
-        :quantidade, 
-        :instrucoes_uso, 
-        :sugestao_horario,
-        :pagina_separada,
-        :_destroy, {parameters_attributes: [:value]}])
+      params.require(:receita).permit(:nome, :paciente, :data, :observacoes, :numero_copias, :paciente, 
+        orientacoes: [],
+        itens_receita_attributes: [
+          :id,
+          :id_medicamento, 
+          :id_unidade_medida, 
+          :quantidade, 
+          :instrucoes_uso, 
+          :sugestao_horario,
+          :pagina_separada,
+          :_destroy, {parameters_attributes: [:value]}])
     end
     
 end
