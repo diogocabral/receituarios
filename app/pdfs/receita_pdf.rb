@@ -10,6 +10,8 @@ class ReceitaPdf < Prawn::Document
 
     @receita = receita
 
+    @first_page = true
+
     mesma_pagina = @receita.itens_receita.select { |item| item.pagina_separada == false}
 
     itens_by_uso = mesma_pagina.group_by { |item| item.medicamento.uso }
@@ -18,9 +20,16 @@ class ReceitaPdf < Prawn::Document
       bounding_box [bounds.left, bounds.top - 150], width: bounds.width, height: 300 do
         start_new_page
 
-        font "Arial"
-        
+        font "Arial"        
+
         add_body(itens_by_uso)
+      end
+
+      if @first_page == true
+        bounding_box [bounds.left, bounds.bottom + 300], width: bounds.width do
+          text @receita.observacoes, align: :center
+        end
+        @first_page = false
       end
     end
 
@@ -45,10 +54,6 @@ class ReceitaPdf < Prawn::Document
     repeat :all do
       bounding_box [bounds.left, bounds.top], width: bounds.width do
         add_header
-      end
-
-      bounding_box [bounds.left, bounds.bottom + 300], width: bounds.width do
-        text @receita.observacoes, align: :center
       end
 
       bounding_box [bounds.left, bounds.bottom + 200], width: bounds.width do
@@ -77,7 +82,7 @@ class ReceitaPdf < Prawn::Document
 
   	def add_body(itens_grouped_by_uso)
 
-      itens_grouped_by_uso.each do |key, value|
+      itens_grouped_by_uso.sort_by { |key, value| key[:nome] }.reverse.each do |key, value|
 
         text "<b>Uso #{key.nome.downcase}:</b>",
           :inline_format => true
@@ -85,7 +90,7 @@ class ReceitaPdf < Prawn::Document
         move_down 10
 
         indent(20) do
-          value.each_with_index do |item, index|
+          value.sort_by { |item| item.medicamento.nome }.each_with_index do |item, index|
             unidade_medida = item.unidade_medida.nome.pluralize(item.quantidade).downcase
 
             text_size = width_of "<b>#{index + 1}) #{item.medicamento.nome}</b> #{item.quantidade} #{unidade_medida.downcase}", 
