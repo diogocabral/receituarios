@@ -33,6 +33,52 @@ class ReceitasController < ApplicationController
     end
   end
 
+  # GET /receitas/preparar
+  def preparar_avulsa
+    @receita = Receita.new
+    @receita.itens_receita.build
+
+    @receita.data = Time.now.strftime('%d/%m/%Y')
+    @receita.numero_copias = 1
+  end
+
+  # GET /receitas/exportar
+  def exportar_avulsa
+    @receita = Receita.new(receita_params)
+
+    @receita.paciente = receita_params[:paciente]
+    @receita.data = receita_params[:data]
+    @receita.observacoes = receita_params[:observacoes]
+    @receita.numero_copias = receita_params[:numero_copias].to_i
+
+    @receita.orientacoes = []
+    if receita_params[:orientacoes].present?
+      # Using select to avoid the first empty element. It's probably a bug on rails multiselect helper.
+      # http://stackoverflow.com/questions/8929230/why-is-the-first-element-always-blank-in-my-rails-multi-select-using-an-embedde
+      receita_params[:orientacoes].select { |item| item.present? }.each do |id_orientacao|
+        @receita.orientacoes << Orientacao.find(id_orientacao)
+      end      
+    end
+
+    if @receita.transient_attributes_valid? and @receita.itens_receita.all?(&:valid?)
+      receita_pdf = ReceitaPdf.new(@receita)
+
+      combined_file = CombinePDF.new
+      combined_file << CombinePDF.parse(receita_pdf.render)
+
+      if @receita.orientacoes.any?
+        @receita.orientacoes.each do |orientacao|
+          orientacao_pdf = OrientacaoPdf.new(orientacao)
+          combined_file << CombinePDF.parse(orientacao_pdf.render)
+        end
+      end
+
+      send_data combined_file.to_pdf, filename: "receita_avulsa.pdf", type: "application/pdf"
+    elsif
+      render :preparar_avulsa
+    end
+  end
+
   # PATCH/PUT /receitas/1
   def update
     if @receita.update(receita_params)
@@ -93,7 +139,7 @@ class ReceitasController < ApplicationController
         end
       end
 
-      send_data combined_file.to_pdf, filename: "receita_#{@receita.id}.pdf", type: "application/pdf", disposition: "inline"
+      send_data combined_file.to_pdf, filename: "receita_#{@receita.id}.pdf", type: "application/pdf"
     elsif
       render :preparar
     end

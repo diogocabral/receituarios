@@ -13,9 +13,13 @@ Rails.application.routes.draw do
   end
 
   resources :receitas do
+    collection do
+      get 'preparar' => 'receitas#preparar_avulsa'
+      post 'exportar' => 'receitas#exportar_avulsa'
+    end       
     member do
       get 'preparar'
-      get 'exportar'
+      post 'exportar'
     end
   end
 

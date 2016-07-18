@@ -17,33 +17,31 @@
     <%= f.text_field :nome, :class => 'form-control' %>
   </div>
 
-  <div class="form-group">
-    <table id="itens_receita" class="table">
-      <thead>
-        <tr>
-            <th>Medicamento</th>
-            <th>Unidade de Medida</th>
-            <th>Quantidade</th>
-            <th>Instruções de Uso</th>
-            <th>Sugestão de Horário</th>
-            <th>Página Separada</th>
-            <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= f.fields_for :itens_receita do |item_form| %>
-          <%= render partial: 'item', :object => item_form %>
-        <% end %>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="7">
-            <%= link_to_add_item_receita "Adicionar Medicamento", f, :itens_receita, 'btn btn-default' %>
-          </td>
-        </tr>
-      </tfoot>
-    <table>
-  </div>
+  <table id="itens_receita" class="table">
+    <thead>
+      <tr>
+          <th>Medicamento</th>
+          <th>Unidade de Medida</th>
+          <th>Quantidade</th>
+          <th>Instruções de Uso</th>
+          <th>Sugestão de Horário</th>
+          <th>Página Separada</th>
+          <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= f.fields_for :itens_receita do |item_form| %>
+        <%= render partial: 'item', :object => item_form %>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="7">
+          <%= link_to_add_item_receita "Adicionar Medicamento", f, :itens_receita, 'btn btn-default' %>
+        </td>
+      </tr>
+    </tfoot>
+  <table>
 
   <%= f.submit 'Salvar', :class => 'btn btn-default' %>
   <%= link_to 'Voltar', receitas_path, :class => 'btn btn-default' %>

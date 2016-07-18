@@ -1,0 +1,79 @@
+<h1>Receita Avulsa</h1>
+
+<%= form_for @receita, method: :post, :url => exportar_receitas_path, :html => {:class => 'form-horizontal', :role => 'form'} do |f| %>
+
+  <% if @receita.errors.any? or @receita.itens_receita.all? { |t| t.errors.any? } %>
+    <div class="alert alert-danger" role="alert">
+      <strong><%= pluralize(@receita.errors.count, "erro") %> ao tentar salvar:</strong>
+
+      <ul>
+      <% @receita.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      <% @receita.itens_receita.each do |item| %>
+        <% item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :paciente, "Paciente:" %>
+    <%= f.text_field :paciente, :class => 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :data, "Data:" %>
+    <%= f.text_field :data, :class => 'form-control' %>
+  </div>
+
+    <table id="itens_receita" class="table">
+      <thead>
+        <tr>
+            <th>Medicamento</th>
+            <th>Unidade de Medida</th>
+            <th>Quantidade</th>
+            <th>Instruções de Uso</th>
+            <th>Sugestão de Horário</th>
+            <th>Página Separada</th>
+            <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= f.fields_for :itens_receita do |item_form| %>
+          <%= render partial: 'item', :object => item_form %>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="7">
+            <%= link_to_add_item_receita "Adicionar Medicamento", f, :itens_receita, 'btn btn-default' %>
+          </td>
+        </tr>
+      </tfoot>
+    <table>
+
+  <div class="form-group">
+    <%= f.label :observacoes, "Observações:" %>
+    <%= f.text_area :observacoes, :class => 'form-control', size: "25x5" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :numero_copias, "Número de Cópias:" %>
+    <%= f.number_field :numero_copias, :class => 'form-control', :min => 1 %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :orientacoes, "Orientações:" %>
+    <%= f.collection_select(:orientacoes, Orientacao.order(:nome).all, :id, :nome, {}, { :multiple => true, :size => 4, :class => 'form-control'}) %></td>
+  </div>
+
+  <%= f.submit 'Gerar', :class => 'btn btn-default' %>
+  <%= link_to 'Voltar', receitas_path, :class => 'btn btn-default' %>
+
+<% end %>
+
+
+
