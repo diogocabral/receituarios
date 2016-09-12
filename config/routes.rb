@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     collection do
       get 'preparar' => 'receitas#preparar_avulsa'
       post 'exportar' => 'receitas#exportar_avulsa'
+      get 'importar' => 'receitas#importar'
     end       
     member do
       get 'preparar'

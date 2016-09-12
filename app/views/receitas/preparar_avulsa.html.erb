@@ -1,3 +1,24 @@
+<div id="receita_modal" class="modal fade" tabindex="-1" role="dialog">  
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Escolha a Receita</h4>
+        </div>
+        <%= form_for @receita, method: :get, :url => importar_receitas_path, :html => {:role => 'form'} do |f| %>
+          <div class="modal-body">
+            <%= label_tag "Receita:" %>
+            <%= select_tag(:id, options_from_collection_for_select(Receita.order(:nome).all, :id, :nome), { :size => 8, :class => 'form-control'}) %>      
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <%= f.submit 'Importar', :class => 'btn btn-default' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+</div>
+
 <h1>Receita Avulsa</h1>
 
 <%= form_for @receita, method: :post, :url => exportar_receitas_path, :html => {:class => 'form-horizontal', :role => 'form'} do |f| %>
@@ -72,6 +93,7 @@
 
   <%= f.submit 'Gerar', :class => 'btn btn-default' %>
   <%= link_to 'Voltar', receitas_path, :class => 'btn btn-default' %>
+  <%= link_to 'Importar', '#', :class => 'importar btn btn-default pull-right' %>
 
 <% end %>
 

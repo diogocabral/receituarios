@@ -1,7 +1,7 @@
 class ReceitasController < ApplicationController
 
   before_action :authenticate_usuario!, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_receita, only: [:show, :edit, :exportar, :preparar, :update, :destroy]
+  before_action :set_receita, only: [:show, :edit, :importar, :exportar, :preparar, :update, :destroy]
 
   # GET /receitas
   def index
@@ -40,6 +40,14 @@ class ReceitasController < ApplicationController
 
     @receita.data = Time.now.strftime('%d/%m/%Y')
     @receita.numero_copias = 1
+  end
+
+  # GET /receitas/importar
+  def importar
+    @receita.data = Time.now.strftime('%d/%m/%Y')
+    @receita.numero_copias = 1
+
+    render :preparar_avulsa
   end
 
   # GET /receitas/exportar
@@ -153,7 +161,7 @@ class ReceitasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def receita_params
-      params.require(:receita).permit(:nome, :paciente, :data, :observacoes, :numero_copias, :paciente, 
+      params.require(:receita).permit(:id, :nome, :paciente, :data, :observacoes, :numero_copias, :paciente, 
         orientacoes: [],
         itens_receita_attributes: [
           :id,
