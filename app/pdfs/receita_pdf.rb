@@ -114,8 +114,10 @@ class ReceitaPdf < Prawn::Document
 
               sugestao_uso = item.instrucoes_uso
 
-              item.parameters_count.times do |index|
-                sugestao_uso.sub! "{#{index}}", item.parameters[index]
+              if item.parameters
+                item.parameters_count.times do |index|
+                  sugestao_uso.sub! "{#{index}}", item.parameters[index]
+                end
               end
 
       		    text sugestao_uso, :size => 10

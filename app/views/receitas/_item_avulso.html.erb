@@ -1,0 +1,14 @@
+<tr>
+  <td><%= item_avulso.collection_select(:id_medicamento, Medicamento.order(:nome).all, :id, :nome, {:prompt => 'Selecione'}, {:class => 'form-control'}) %></td>
+  <td><%= item_avulso.collection_select(:id_unidade_medida, UnidadeMedida.order(:nome).all, :id, :nome, {:prompt => 'Selecione'}, {:class => 'form-control'}) %></td>
+  <td><%= item_avulso.text_field :quantidade, :class => 'form-control' %></td> 
+  <td><%= item_avulso.text_field :instrucoes_uso, :class => 'form-control' %></td>
+  <td><%= item_avulso.text_field :sugestao_horario, :class => 'form-control' %></td>
+  <td>
+    <%= item_avulso.radio_button :pagina_separada, true, :class => 'radio-inline' %> Sim
+    <%= item_avulso.radio_button :pagina_separada, false, :class => 'radio-inline' %> Não
+  </td>
+  <td>
+    <%= link_to 'Remover', '#', :class => 'remove_item btn btn-default' %>
+  </td>
+</tr>

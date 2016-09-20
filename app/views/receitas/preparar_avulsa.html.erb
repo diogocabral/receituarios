@@ -63,8 +63,8 @@
         </tr>
       </thead>
       <tbody>
-        <%= f.fields_for :itens_receita do |item_form| %>
-          <%= render partial: 'item', :object => item_form %>
+        <%= f.fields_for :itens_receita, include_id: false do |item_avulso_form| %>
+          <%= render partial: 'item_avulso', :object => item_avulso_form %>
         <% end %>
       </tbody>
       <tfoot>
