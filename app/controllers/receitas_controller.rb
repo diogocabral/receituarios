@@ -81,7 +81,7 @@ class ReceitasController < ApplicationController
         end
       end
 
-      send_data combined_file.to_pdf, filename: "receita_avulsa.pdf", type: "application/pdf"
+      send_data combined_file.to_pdf, filename: "receita_avulsa_#{DateTime.now.to_time.to_i}.pdf", type: "application/pdf"
     elsif
       render :preparar_avulsa
     end
@@ -147,7 +147,7 @@ class ReceitasController < ApplicationController
         end
       end
 
-      send_data combined_file.to_pdf, filename: "receita_#{@receita.id}.pdf", type: "application/pdf"
+      send_data combined_file.to_pdf, filename: "receita_#{DateTime.now.to_time.to_i}.pdf", type: "application/pdf"
     elsif
       render :preparar
     end
