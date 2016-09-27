@@ -18,8 +18,8 @@
       <tr>
         <td><%= link_to "#{unidade_medida.nome}", unidade_medida %></td>
         <td><%= unidade_medida.sigla %></td>
-        <td style="width: 80px;"><%= link_to 'Editar', edit_unidade_medida_path(unidade_medida) %></td>
-        <td style="width: 80px;"><%= link_to 'Excluir', unidade_medida, method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
+        <td style="width: 80px;"><%= link_to 'Editar', edit_unidade_medida_path(unidade_medida), :class => 'btn btn-default' %></td>
+        <td style="width: 80px;"><%= link_to 'Excluir', unidade_medida, :class => 'btn btn-default', method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
       </tr>
     <% end %>
   </tbody>

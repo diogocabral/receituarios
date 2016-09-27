@@ -18,8 +18,8 @@
       <tr>
         <td><%= link_to "#{medicamento.nome}", medicamento %></td>
         <td><%= medicamento.uso.nome %></td>
-        <td style="width: 80px;"><%= link_to 'Editar', edit_medicamento_path(medicamento) %></td>
-        <td style="width: 80px;"><%= link_to 'Excluir', medicamento, method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
+        <td style="width: 80px;"><%= link_to 'Editar', edit_medicamento_path(medicamento), :class => 'btn btn-default' %></td>
+        <td style="width: 80px;"><%= link_to 'Excluir', medicamento, :class => 'btn btn-default', method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
       </tr>
     <% end %>
   </tbody>

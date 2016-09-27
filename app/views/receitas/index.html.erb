@@ -16,9 +16,9 @@
     <% @receitas.each do |receita| %>
       <tr>
         <td><%= link_to "#{receita.nome}", receita %></td>
-        <td style="width: 150px;"><%= link_to 'Preparar Receita', preparar_receita_path(receita) %></td>
-        <td style="width: 80px;"><%= link_to 'Editar', edit_receita_path(receita) %></td>
-        <td style="width: 80px;"><%= link_to 'Excluir', receita, method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
+        <td style="width: 150px;"><%= link_to 'Preparar Receita', preparar_receita_path(receita), :class => 'btn btn-default' %></td>
+        <td style="width: 80px;"><%= link_to 'Editar', edit_receita_path(receita), :class => 'btn btn-default' %></td>
+        <td style="width: 80px;"><%= link_to 'Excluir', receita, :class => 'btn btn-default', method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
       </tr>
     <% end %>
   </tbody>
