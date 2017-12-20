@@ -88,7 +88,7 @@
 
   <div class="form-group">
     <%= f.label :orientacoes, "Orientações:" %>
-    <%= f.collection_select(:orientacoes, Orientacao.order(:nome).all, :id, :nome, {}, { :multiple => true, :size => 4, :class => 'form-control'}) %></td>
+    <%= f.collection_select(:orientacoes, Orientacao.order(:nome).all, :id, :nome, {}, { :multiple => true, :size => 4, :class => 'form-control'}) %>
   </div>
 
   <%= f.submit 'Gerar', :class => 'btn btn-default' %>
