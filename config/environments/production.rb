@@ -80,8 +80,7 @@ Rails.application.configure do
   #devise configuration
   config.action_mailer.default_url_options = {:host => 'diogo.4techlabs.com.br/', :port => '80'}
 
-  config.action_mailer.smtp_settings = {
-    enable_starttls_auto: true,
+  config.action_mailer.smtp_settings = {    
     address: "smtp.gmail.com",
     port: 587,
     domain: ENV["GMAIL_DOMAIN"],

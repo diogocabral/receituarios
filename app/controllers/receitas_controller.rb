@@ -68,7 +68,7 @@ class ReceitasController < ApplicationController
       end      
     end
 
-    if @receita.transient_attributes_valid? and @receita.itens_receita.all?(&:valid?)
+    if @receita.transient_attributes_valid?
       receita_pdf = ReceitaPdf.new(@receita)
 
       combined_file = CombinePDF.new
@@ -82,7 +82,7 @@ class ReceitasController < ApplicationController
       end
 
       send_data combined_file.to_pdf, filename: "receita_avulsa_#{DateTime.now.to_time.to_i}.pdf", type: "application/pdf"
-    elsif
+    else
       render :preparar_avulsa
     end
   end
@@ -148,7 +148,7 @@ class ReceitasController < ApplicationController
       end
 
       send_data combined_file.to_pdf, filename: "receita_#{DateTime.now.to_time.to_i}.pdf", type: "application/pdf"
-    elsif
+    else
       render :preparar
     end
   end

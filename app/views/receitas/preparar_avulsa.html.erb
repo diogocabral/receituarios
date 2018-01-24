@@ -25,7 +25,7 @@
 
   <% if @receita.errors.any? or @receita.itens_receita.all? { |t| t.errors.any? } %>
     <div class="alert alert-danger" role="alert">
-      <strong><%= pluralize(@receita.errors.count, "erro") %> ao tentar exportar:</strong>
+      <strong><%= pluralize(@receita.errors.count + @receita.itens_receita.map {|i| i.errors.count}.reduce(0, :+), "erro") %> ao tentar exportar:</strong>
 
       <ul>
       <% @receita.errors.full_messages.each do |message| %>
