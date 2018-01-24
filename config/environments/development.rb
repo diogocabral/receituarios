@@ -48,7 +48,6 @@ Rails.application.configure do
   config.action_mailer.default :charset => "utf-8"
 
   config.action_mailer.smtp_settings = {
-    enable_starttls_auto: true,
     address: "smtp.gmail.com",
     port: 587,
     domain: ENV["GMAIL_DOMAIN"],

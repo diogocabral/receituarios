@@ -7,6 +7,6 @@ ready = ->
 
   $('.importar').on 'click', (event) ->
     $("#receita_modal").modal("show")
+    event.preventDefault()
 
-$(document).ready(ready)
-$(document).on('page:load', ready)
+$(document).on('turbolinks:load', ready)

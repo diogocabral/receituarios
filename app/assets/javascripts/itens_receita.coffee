@@ -17,5 +17,4 @@ ready = ->
 		$('tbody').append($(this).data('fields').replace(regexp, time))
 		event.preventDefault()
 
-$(document).ready(ready)
-$(document).on('page:load', ready)
+$(document).on('turbolinks:load', ready)
