@@ -78,7 +78,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   #devise configuration
-  config.action_mailer.default_url_options = {:host => 'diogo.4techlabs.com.br/', :port => '80'}
+  config.action_mailer.default_url_options = {:host => 'diogocabral.com.br/', :port => '80'}
 
   config.action_mailer.smtp_settings = {    
     address: "smtp.gmail.com",
