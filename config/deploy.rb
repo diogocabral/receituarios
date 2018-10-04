@@ -1,10 +1,13 @@
 # config valid only for current version of Capistrano
-lock '3.10.1'
+lock '3.11.0'
 
 set :application, 'receituarios'
 set :repo_url, 'git@github.com:diogocabral/receituarios.git'
 
-set :rvm_type, :system
+set :rvm_type, :user
+
+set :nvm_type, :user
+set :nvm_node, 'v8.0.0'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
